@@ -26,3 +26,20 @@ extras — `--force-reinstall` fixes this.
 - I decided to use /notebooks for exploration and analysis and /src for reusable code parts and stable infrastructure
 - I decided not to filter `requirements.txt` for packages used in this project only. Right now, it includes some packages
 inherited from other projects I worked on before I learned to use `.venv`. 
+
+
+### 3.05.2026
+**Done:**
+- Inspected the `.csv` files with locations, competitors, POIs, analyzed area and districts
+- Performed EDA of the data, identified outliers for monthly revenue and out-of-bounds locations
+- Sketched an initial map of all locations
+
+**Insights:**
+- `geopandas` and `shapely` provide amazing tools for spatial data analysis, while `folium` makes it very easy to later plot
+your findings. I parsed WKT polygons and created points from lng/lat. 
+
+**Decisions made:**
+- Analysis bbox will be saved in a JSON format for reference.
+- A map of locations will be built and updated for consecutive layers of data (analyzed area, districts, locations etc.)
+- Keep all revenue outliers
+- All point geometries in EPSG:4326
