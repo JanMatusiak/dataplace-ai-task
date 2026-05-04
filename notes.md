@@ -35,11 +35,28 @@ inherited from other projects I worked on before I learned to use `.venv`.
 - Sketched an initial map of all locations
 
 **Insights:**
-- `geopandas` and `shapely` provide amazing tools for spatial data analysis, while `folium` makes it very easy to later plot
-your findings. I parsed WKT polygons and created points from lng/lat. 
+- `geopandas` and `shapely` provide amazing tools for spatial data analysis, while `folium` makes it very easy to create 
+interactive, layered maps. I parsed WKT polygons and created points from lng/lat. 
 
 **Decisions made:**
 - Analysis bbox will be saved in a JSON format for reference.
 - A map of locations will be built and updated for consecutive layers of data (analyzed area, districts, locations etc.)
 - Keep all revenue outliers
 - All point geometries in EPSG:4326
+
+
+### 4.05.2026 - 4 hours
+**Done**
+- Built a layered map from objects identified in local `.csv` files
+- Inspected the data from AWS S3, identified distributions, asserted certain relationships
+- Started inspecting the data from Snowflake, inspected the number of rows from our analysis area
+
+**Insights:**
+- There were several statistical outliers in multiple analyzed columns, however, they are all kept based on the context. 
+- The distributions of numerical values were right-skewed.
+I still have to mind that actual outliers can be present and should be handled one way or another.
+- The bbox of analysis area and district union area is exactly the same. However, district union still covers a larger area.
+
+**Decisions made**
+- Analysis area will be used for whitespot analysis, however, client already has stores outside this area - they will be
+used when developing model. This decision was made after consulting the Head of Data.
