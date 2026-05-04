@@ -1,6 +1,6 @@
 # My journal of working on this project
 
-### 30.04.2026  
+### 30.04.2026 - 1 hour
 **Done**:
 - Set up the project, .env_example, .env, .venv and requirements.txt via `pip freeze > ...`
 - Used `load_dotenv` for the first time to automatically read environment variables
@@ -28,7 +28,7 @@ extras — `--force-reinstall` fixes this.
 inherited from other projects I worked on before I learned to use `.venv`. 
 
 
-### 3.05.2026
+### 3.05.2026 - 2 hours
 **Done:**
 - Inspected the `.csv` files with locations, competitors, POIs, analyzed area and districts
 - Performed EDA of the data, identified outliers for monthly revenue and out-of-bounds locations
