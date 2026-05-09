@@ -154,29 +154,38 @@ def compute_population_features(gdf_locations, gdf_population, radius=1500):
 
 
 def compute_footfall_features(gdf_locations, base_filter, radius=1500):
-    results = []
+    values = ",\n        ".join([
+        f"('{row['location_id']}', {row['geometry'].y}, {row['geometry'].x})"
+        for _, row in gdf_locations.iterrows()
+    ])
 
-    # we loop over each location and compute features separately
-    for _, row in gdf_locations.iterrows():
-        lng, lat = row['geometry'].x, row['geometry'].y
-
-        df = _query(f"""
-            SELECT
-                COUNT(*) AS signals,
-                COUNT(DISTINCT proxi_user_id) AS unique_users
-            FROM RECRUITMENT_TRACES
-            WHERE {base_filter}
-            AND ST_DWITHIN(
-                TO_GEOGRAPHY(ST_MAKEPOINT(CAST(longitude AS FLOAT), CAST(latitude AS FLOAT))),
-                TO_GEOGRAPHY(ST_MAKEPOINT({lng}, {lat})),
+    df = _query(f"""
+        WITH locations AS (
+            SELECT column1 AS location_id,
+                   column2 AS lat,
+                   column3 AS lng
+            FROM VALUES
+                {values}
+        )
+        SELECT
+            l.location_id,
+            COUNT(*) AS signals,
+            COUNT(DISTINCT t.proxi_user_id) AS unique_users
+        FROM locations l
+        JOIN RECRUITMENT_TRACES t
+            ON ST_DWITHIN(
+                TO_GEOGRAPHY(ST_MAKEPOINT(
+                    CAST(t.longitude AS FLOAT),
+                    CAST(t.latitude AS FLOAT)
+                )),
+                TO_GEOGRAPHY(ST_MAKEPOINT(l.lng, l.lat)),
                 {radius}
-                )
-            """, fetch='pandas')
+            )
+        WHERE {base_filter}
+        GROUP BY l.location_id
+    """, fetch='pandas')
 
-        results.append({
-            'location_id': row['location_id'],
-            f'signals_{radius}m': df['SIGNALS'].iloc[0],
-            f'unique_users_{radius}m': df['UNIQUE_USERS'].iloc[0]
-        })
+    # Rename columns
+    df.columns = ['location_id', f'signals_{radius}m', f'unique_users_{radius}m']
 
-    return pd.DataFrame(results)
+    return df
