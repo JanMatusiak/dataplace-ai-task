@@ -1,0 +1,2108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_19457f1cc3fceb5e40b52f3910456527 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_19457f1cc3fceb5e40b52f3910456527" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_19457f1cc3fceb5e40b52f3910456527 = L.map(
+                "map_19457f1cc3fceb5e40b52f3910456527",
+                {
+                    center: [50.21468962736308, 19.31423824094499],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c1212c6579b6543d6c5534aa01c74aee = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c1212c6579b6543d6c5534aa01c74aee.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+        function geo_json_8d22a5724f18d70937d36909d5087eab_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "black", "fillOpacity": 0.02, "weight": 2};
+            }
+        }
+
+        function geo_json_8d22a5724f18d70937d36909d5087eab_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_8d22a5724f18d70937d36909d5087eab = L.geoJson(null, {
+                onEachFeature: geo_json_8d22a5724f18d70937d36909d5087eab_onEachFeature,
+            
+                style: geo_json_8d22a5724f18d70937d36909d5087eab_styler,
+            ...{
+}
+        });
+
+        function geo_json_8d22a5724f18d70937d36909d5087eab_add (data) {
+            geo_json_8d22a5724f18d70937d36909d5087eab
+                .addData(data);
+        }
+            geo_json_8d22a5724f18d70937d36909d5087eab_add({"bbox": [18.54, 49.96, 20.12, 50.48], "features": [{"bbox": [18.54, 49.96, 20.12, 50.48], "geometry": {"coordinates": [[[18.54, 50.42], [18.56, 50.45], [18.6, 50.47], [18.68, 50.48], [18.78, 50.48], [18.88, 50.47], [18.95, 50.45], [19.02, 50.44], [19.12, 50.43], [19.22, 50.44], [19.32, 50.45], [19.42, 50.46], [19.52, 50.47], [19.6, 50.48], [19.68, 50.47], [19.76, 50.45], [19.84, 50.42], [19.92, 50.38], [19.98, 50.34], [20.04, 50.3], [20.1, 50.24], [20.12, 50.18], [20.12, 50.12], [20.1, 50.06], [20.06, 50.01], [20.0, 49.97], [19.94, 49.96], [19.84, 49.96], [19.74, 49.97], [19.64, 49.98], [19.52, 49.98], [19.4, 49.97], [19.28, 49.96], [19.16, 49.96], [19.04, 49.97], [18.94, 49.98], [18.84, 50.0], [18.74, 50.02], [18.66, 50.06], [18.6, 50.1], [18.56, 50.14], [18.54, 50.2], [18.54, 50.26], [18.54, 50.32], [18.54, 50.36], [18.54, 50.42]]], "type": "Polygon"}, "id": "0", "properties": {"area_name": "Silesia-Krak\u00f3w Metropolitan Area"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_8d22a5724f18d70937d36909d5087eab.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+            var heat_map_4a35b77b1dce58da8b247ccb5e47117a = L.heatLayer(
+                [[50.41570087318157, 19.152815094381737, 19.600000381469727], [50.16746135172333, 19.394245406561414, 47.29999923706055], [50.20395238559589, 19.464339706899693, 26.5], [50.242070972533504, 19.778526663057047, 30.399999618530273], [50.35578610795392, 18.681503508205612, 58.0], [50.27470830407658, 19.36068778049813, 21.899999618530273], [50.09430710471816, 19.254290008342302, 0.0], [50.31116852292873, 19.43086659376066, 4.400000095367432], [50.31447931741731, 19.91939496518445, 20.0], [50.473697664052715, 19.62522464846739, 22.100000381469727], [50.24891625924397, 18.71607771253494, 31.200000762939453], [50.201615347336904, 19.22056428200392, 69.9000015258789], [50.16498287181159, 19.15061975466308, 34.900001525878906], [50.14186886616262, 18.750550947905303, 0.6000000238418579], [50.19876924974834, 18.97689043962638, 82.0999984741211], [50.00105035835695, 18.95829753045003, 5.599999904632568], [50.212017600249716, 18.646398885376026, 35.20000076293945], [50.38177829313906, 19.32703133437573, 33.79999923706055], [49.96966564122551, 19.374506901307683, 46.79999923706055], [50.17089048428954, 19.881773669837134, 14.199999809265137], [50.32254312674813, 18.855673485277343, 27.399999618530273], [50.20577977763022, 19.70820794683821, 12.699999809265137], [50.17506230318077, 18.576799525098462, 45.0], [50.12829324051937, 19.080753478673262, 5.599999904632568], [50.10839157237029, 18.92418952269879, 40.0], [50.31891745988254, 18.61174247889596, 56.900001525878906], [50.20709698637166, 19.952160214215798, 18.899999618530273], [50.40290755092095, 19.72893860001198, 18.899999618530273], [50.240385852032645, 19.53451163412578, 13.600000381469727], [50.02345875011182, 19.35777209160571, 7.400000095367432], [50.42563941601737, 18.576984552798375, 23.600000381469727], [50.16943073951552, 19.63796630124603, 19.200000762939453], [50.281992061964644, 18.542061229115046, 18.899999618530273], [50.008104016973334, 19.687591301710277, 15.300000190734863], [50.36224599375637, 19.1697897375578, 9.699999809265137], [50.4374264740203, 19.554769498758066, 16.899999618530273], [50.08827872286981, 18.76774983256536, 3.9000000953674316], [50.29572733681567, 19.76202169047359, 23.600000381469727], [50.05764415425854, 19.184429068593577, 27.700000762939453], [50.39259787215414, 18.751344246944623, 54.5], [50.113771647277375, 19.410987290799902, 37.20000076293945], [50.079276943510266, 19.58441023342256, 42.400001525878906], [50.23819053522867, 19.290586983412364, 60.900001525878906], [50.33194490498717, 19.8324603247012, 41.20000076293945], [50.31307956232763, 19.675088040785024, 18.899999618530273], [50.345291284703606, 19.256846188661655, 100.0], [50.042797195482805, 19.51436526230921, 57.900001525878906], [50.39594183761865, 18.99558626784802, 41.29999923706055], [50.278304195285465, 19.848922364634095, 24.700000762939453], [50.07154630304996, 18.854517224978892, 10.300000190734863], [50.0818889773793, 20.071461003974775, 49.20000076293945], [50.09655965175439, 19.497714557451154, 25.700000762939453], [50.13091288106167, 19.324228813836243, 24.5], [50.38554144672642, 19.815973958472142, 72.80000305175781], [50.347571061293756, 19.501123342586094, 28.0], [50.40915432219782, 18.66417841184265, 18.299999237060547], [50.37912952646621, 19.082702968369123, 10.199999809265137], [50.00390863559737, 19.201296636207708, 12.0], [50.034644353105286, 18.784923631119376, 9.600000381469727], [50.2432453735391, 20.022623263986656, 32.70000076293945], [50.383915789142975, 19.571457945243875, 21.200000762939453], [50.18837050755498, 19.79500732205176, 15.600000381469727], [50.44595100311457, 18.73406045804774, 6.599999904632568], [50.07463076470902, 19.097712173039774, 17.5], [50.11133558436149, 19.16753679187565, 12.300000190734863], [50.45457919246233, 19.467636524194354, 39.5], [50.1357183897153, 20.055205768493614, 9.899999618530273], [50.06192357245474, 19.67107393920248, 3.9000000953674316], [50.22311824274772, 19.621375923974885, 11.300000190734863], [50.33920023581198, 18.768602722212147, 79.0999984741211], [50.17874081537368, 18.82022679001789, 14.300000190734863], [50.12153086402572, 18.59413068538069, 83.5999984741211], [50.03786897842404, 19.0279657275143, 29.799999237060547], [50.40109728783584, 19.48439227505746, 28.700000762939453], [50.10494025712929, 18.680954191113482, 26.700000762939453], [50.02092416170486, 19.11464607200336, 35.70000076293945], [49.97312871770215, 19.860687839418627, 27.5], [50.2721448042724, 19.11671119252282, 69.9000015258789], [50.4182076391711, 19.397294806386228, 62.900001525878906], [50.189503873128494, 20.03892653867492, 15.899999618530273], [50.232271654957145, 18.803043941505845, 18.899999618530273], [50.43524679488975, 19.310165924558206, 23.600000381469727], [50.29400056513415, 19.517829778435505, 6.199999809265137], [50.05474304036944, 18.941255984365327, 23.5], [50.21858596289388, 19.133677905431526, 67.30000305175781], [50.14518002747304, 18.993940451468784, 49.599998474121094], [50.11569916475673, 19.654532289329254, 49.70000076293945], [50.228549386792636, 18.55944305710364, 3.799999952316284], [50.080837490153556, 19.82789590299741, 28.600000381469727], [50.36666319225049, 19.658491432486088, 15.899999618530273], [50.01788273750734, 18.87162491510892, 10.199999809265137], [49.986822446380444, 19.28791703930955, 42.0], [50.33036082059672, 19.588121797287226, 29.600000381469727], [50.36810431590618, 19.902976011491273, 83.0999984741211], [50.43255530249941, 19.06566135313461, 19.100000381469727], [50.46247799393585, 18.64682791596353, 18.899999618530273], [50.291763049560195, 19.273728982391255, 47.70000076293945], [50.051335162166424, 18.69819406151497, 44.599998474121094], [50.25945173978204, 19.691660195155666, 11.899999618530273], [50.18457379462952, 19.307420243385355, 50.400001525878906], [50.04449958938873, 19.75770529614419, 16.600000381469727], [50.37597010687138, 18.838481668327205, 85.19999694824219], [50.26081018985595, 19.935789682444042, 18.5], [50.39877518811628, 19.23993855042826, 26.600000381469727], [50.150278066465646, 19.481039389354887, 68.0999984741211], [50.02548589697116, 19.60099428098661, 10.300000190734863], [50.32826544542289, 19.343871935757385, 15.899999618530273], [49.98899075205182, 19.530991554916323, 16.700000762939453], [50.46605021506084, 18.89126456677079, 45.599998474121094], [50.34933954721433, 19.745492353202987, 18.899999618530273], [50.25520317827282, 19.203664279506956, 80.4000015258789], [50.0772078482032, 19.341012746156906, 21.0], [50.456431295504935, 19.71236037953224, 18.899999618530273], [50.29694283724746, 20.00629589376289, 23.600000381469727], [50.06003786232444, 19.427704624230216, 31.200000762939453], [50.22110692181303, 19.377478920257737, 30.700000762939453], [50.372300701902326, 18.594376232063208, 23.600000381469727], [50.04058680042855, 19.271115835101345, 15.300000190734863], [50.25758255550419, 19.447615458831145, 16.700000762939453], [50.4202025769124, 19.641870318883687, 18.899999618530273], [50.22461937060032, 19.865360129360948, 13.199999809265137], [49.9906516065629, 19.774155946792362, 2.5999999046325684], [50.265489741894136, 18.629083345858046, 45.20000076293945], [50.15206372926755, 19.724731346938356, 11.399999618530273], [50.14798330498305, 19.237439507773775, 30.200000762939453], [49.98414725953338, 19.044941094887218, 33.5], [50.19541472936678, 18.733326925239574, 11.600000381469727], [50.36471023498616, 19.41409306016507, 18.899999618530273], [50.18672697504313, 19.55116896104218, 16.399999618530273], [50.15850108763895, 18.663689149741895, 25.5], [50.215555970877375, 18.889981645900132, 32.5]],
+                {
+  "minOpacity": 0.3,
+  "maxZoom": 18,
+  "radius": 30,
+  "blur": 20,
+}
+            );
+        
+    
+            heat_map_4a35b77b1dce58da8b247ccb5e47117a.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+            var feature_group_c4b98f7017990e0d8ed8f45ca8201d64 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_fa10982a15aa19f596a05d35d057ee57 = L.marker(
+                [50.345291284703606, 19.256846188661655],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_3bbbc743c5ba6bc1b92556b8cc9732cf = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_75ef2af1642c48b5123ffe9e0c2fde4f = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_76ba314dd1157a11cc71f0f8db346855 = $(`<div id="html_76ba314dd1157a11cc71f0f8db346855" style="width: 100.0%; height: 100.0%;"><b>Score: 100.0/100</b><br>Est. revenue: 326,898 PLN<br>H3: 861e2e5a7ffffff</div>`)[0];
+                popup_75ef2af1642c48b5123ffe9e0c2fde4f.setContent(html_76ba314dd1157a11cc71f0f8db346855);
+            
+        
+
+        marker_fa10982a15aa19f596a05d35d057ee57.bindPopup(popup_75ef2af1642c48b5123ffe9e0c2fde4f)
+        ;
+
+        
+    
+    
+                marker_fa10982a15aa19f596a05d35d057ee57.setIcon(icon_3bbbc743c5ba6bc1b92556b8cc9732cf);
+            
+    
+            var marker_ba8b6f429712e8a0e6362164954d9472 = L.marker(
+                [50.37597010687138, 18.838481668327205],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_0d67d9d88ba799cba81c38f7f7842c3e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8051dfa9e918a7d7d30fc6e59e2c2ce7 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_151bd8ecf56ecdffb08db278328b4e49 = $(`<div id="html_151bd8ecf56ecdffb08db278328b4e49" style="width: 100.0%; height: 100.0%;"><b>Score: 85.2/100</b><br>Est. revenue: 302,534 PLN<br>H3: 861e23217ffffff</div>`)[0];
+                popup_8051dfa9e918a7d7d30fc6e59e2c2ce7.setContent(html_151bd8ecf56ecdffb08db278328b4e49);
+            
+        
+
+        marker_ba8b6f429712e8a0e6362164954d9472.bindPopup(popup_8051dfa9e918a7d7d30fc6e59e2c2ce7)
+        ;
+
+        
+    
+    
+                marker_ba8b6f429712e8a0e6362164954d9472.setIcon(icon_0d67d9d88ba799cba81c38f7f7842c3e);
+            
+    
+            var marker_d4456dd68981ad105095518655882c92 = L.marker(
+                [50.12153086402572, 18.59413068538069],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_c65239e13c6a6d80c8f151a362db3f19 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_37a237682dcb5c2273bc8bbeeb202c1e = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_779425e405e7ebe19174d74ad7df952a = $(`<div id="html_779425e405e7ebe19174d74ad7df952a" style="width: 100.0%; height: 100.0%;"><b>Score: 83.6/100</b><br>Est. revenue: 299,758 PLN<br>H3: 861e23657ffffff</div>`)[0];
+                popup_37a237682dcb5c2273bc8bbeeb202c1e.setContent(html_779425e405e7ebe19174d74ad7df952a);
+            
+        
+
+        marker_d4456dd68981ad105095518655882c92.bindPopup(popup_37a237682dcb5c2273bc8bbeeb202c1e)
+        ;
+
+        
+    
+    
+                marker_d4456dd68981ad105095518655882c92.setIcon(icon_c65239e13c6a6d80c8f151a362db3f19);
+            
+    
+            var marker_45192f2b779a17ee53e5e6ae2d27d220 = L.marker(
+                [50.36810431590618, 19.902976011491273],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_bee95d772072d7252c760e0df1230dc2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_82a8c79b422f0812eb05f4dc9c889962 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_cce3a2d12d1f9940e1dde7930ab0fc84 = $(`<div id="html_cce3a2d12d1f9940e1dde7930ab0fc84" style="width: 100.0%; height: 100.0%;"><b>Score: 83.1/100</b><br>Est. revenue: 299,008 PLN<br>H3: 861e2e09fffffff</div>`)[0];
+                popup_82a8c79b422f0812eb05f4dc9c889962.setContent(html_cce3a2d12d1f9940e1dde7930ab0fc84);
+            
+        
+
+        marker_45192f2b779a17ee53e5e6ae2d27d220.bindPopup(popup_82a8c79b422f0812eb05f4dc9c889962)
+        ;
+
+        
+    
+    
+                marker_45192f2b779a17ee53e5e6ae2d27d220.setIcon(icon_bee95d772072d7252c760e0df1230dc2);
+            
+    
+            var marker_d41e10949aa71d95ad6fe50af85410ae = L.marker(
+                [50.19876924974834, 18.97689043962638],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_1d78546216b199fbde227b2ace3042da = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_cc5e585da5135108fef2b7f678c653c1 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_806da88484a9fa64c96fd66a8c90ccea = $(`<div id="html_806da88484a9fa64c96fd66a8c90ccea" style="width: 100.0%; height: 100.0%;"><b>Score: 82.1/100</b><br>Est. revenue: 297,425 PLN<br>H3: 861e0592fffffff</div>`)[0];
+                popup_cc5e585da5135108fef2b7f678c653c1.setContent(html_806da88484a9fa64c96fd66a8c90ccea);
+            
+        
+
+        marker_d41e10949aa71d95ad6fe50af85410ae.bindPopup(popup_cc5e585da5135108fef2b7f678c653c1)
+        ;
+
+        
+    
+    
+                marker_d41e10949aa71d95ad6fe50af85410ae.setIcon(icon_1d78546216b199fbde227b2ace3042da);
+            
+    
+            var marker_562a49038c6caea2754516ac897f63e3 = L.marker(
+                [50.25520317827282, 19.203664279506956],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_bbc5866cf771432b7ab6434595654905 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0b2c233fa7d4437fd5349a346be4319c = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_72bbdd2bb778b45e6a362af01f623d40 = $(`<div id="html_72bbdd2bb778b45e6a362af01f623d40" style="width: 100.0%; height: 100.0%;"><b>Score: 80.4/100</b><br>Est. revenue: 294,636 PLN<br>H3: 861e2e597ffffff</div>`)[0];
+                popup_0b2c233fa7d4437fd5349a346be4319c.setContent(html_72bbdd2bb778b45e6a362af01f623d40);
+            
+        
+
+        marker_562a49038c6caea2754516ac897f63e3.bindPopup(popup_0b2c233fa7d4437fd5349a346be4319c)
+        ;
+
+        
+    
+    
+                marker_562a49038c6caea2754516ac897f63e3.setIcon(icon_bbc5866cf771432b7ab6434595654905);
+            
+    
+            var marker_00fab615a2fa1d6592247d4e0eaaaf62 = L.marker(
+                [50.33920023581198, 18.768602722212147],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_1a2af4b43992881604354d28f2226f78 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b486d3fca25df14d71fd2576247c6146 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_0b0d7ef7214a4c9fac3dc1dad02af4f1 = $(`<div id="html_0b0d7ef7214a4c9fac3dc1dad02af4f1" style="width: 100.0%; height: 100.0%;"><b>Score: 79.1/100</b><br>Est. revenue: 292,362 PLN<br>H3: 861e232a7ffffff</div>`)[0];
+                popup_b486d3fca25df14d71fd2576247c6146.setContent(html_0b0d7ef7214a4c9fac3dc1dad02af4f1);
+            
+        
+
+        marker_00fab615a2fa1d6592247d4e0eaaaf62.bindPopup(popup_b486d3fca25df14d71fd2576247c6146)
+        ;
+
+        
+    
+    
+                marker_00fab615a2fa1d6592247d4e0eaaaf62.setIcon(icon_1a2af4b43992881604354d28f2226f78);
+            
+    
+            var marker_69190b77ac6bc08c1425afe01f6e3a10 = L.marker(
+                [50.38554144672642, 19.815973958472142],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_297cdb28506ba15c4f2f346279d30f25 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_12a3a9fdaee9f84d6e13ae55bef23787 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_12f3f80f6a81d1bceefa937ea4a195a5 = $(`<div id="html_12f3f80f6a81d1bceefa937ea4a195a5" style="width: 100.0%; height: 100.0%;"><b>Score: 72.8/100</b><br>Est. revenue: 281,971 PLN<br>H3: 861e2e097ffffff</div>`)[0];
+                popup_12a3a9fdaee9f84d6e13ae55bef23787.setContent(html_12f3f80f6a81d1bceefa937ea4a195a5);
+            
+        
+
+        marker_69190b77ac6bc08c1425afe01f6e3a10.bindPopup(popup_12a3a9fdaee9f84d6e13ae55bef23787)
+        ;
+
+        
+    
+    
+                marker_69190b77ac6bc08c1425afe01f6e3a10.setIcon(icon_297cdb28506ba15c4f2f346279d30f25);
+            
+    
+            var marker_a5e22579f5b34eb0abc303f1db6dc32b = L.marker(
+                [50.201615347336904, 19.22056428200392],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_7bea457b10791801701d4698c806d6be = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_51050d03c871ca694d58c1c1f913e691 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_17237e411b860f2fa5d1aefe6f8e534e = $(`<div id="html_17237e411b860f2fa5d1aefe6f8e534e" style="width: 100.0%; height: 100.0%;"><b>Score: 69.9/100</b><br>Est. revenue: 277,247 PLN<br>H3: 861e0596fffffff</div>`)[0];
+                popup_51050d03c871ca694d58c1c1f913e691.setContent(html_17237e411b860f2fa5d1aefe6f8e534e);
+            
+        
+
+        marker_a5e22579f5b34eb0abc303f1db6dc32b.bindPopup(popup_51050d03c871ca694d58c1c1f913e691)
+        ;
+
+        
+    
+    
+                marker_a5e22579f5b34eb0abc303f1db6dc32b.setIcon(icon_7bea457b10791801701d4698c806d6be);
+            
+    
+            var marker_2fd60057b3801ccbd2f29c106b46aa60 = L.marker(
+                [50.2721448042724, 19.11671119252282],
+                {
+}
+            ).addTo(feature_group_c4b98f7017990e0d8ed8f45ca8201d64);
+        
+    
+            var icon_49c06c1915f1591610cb9a34914df1c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_83e19ce4f59244c31a9681c7e6610a07 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_ae66d5c23b955b86136044811222b216 = $(`<div id="html_ae66d5c23b955b86136044811222b216" style="width: 100.0%; height: 100.0%;"><b>Score: 69.9/100</b><br>Est. revenue: 277,192 PLN<br>H3: 861e232cfffffff</div>`)[0];
+                popup_83e19ce4f59244c31a9681c7e6610a07.setContent(html_ae66d5c23b955b86136044811222b216);
+            
+        
+
+        marker_2fd60057b3801ccbd2f29c106b46aa60.bindPopup(popup_83e19ce4f59244c31a9681c7e6610a07)
+        ;
+
+        
+    
+    
+                marker_2fd60057b3801ccbd2f29c106b46aa60.setIcon(icon_49c06c1915f1591610cb9a34914df1c1);
+            
+    
+            feature_group_c4b98f7017990e0d8ed8f45ca8201d64.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+            var feature_group_8c51c6900635a216beac861fa27941d9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_9739bf5d32c9cbd3b5d7385da3aef589 = L.marker(
+                [50.09430710471816, 19.254290008342302],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_f67003cb172b6e8c03f9fe59781ace1d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bc0304d8b9f07431f44f5cdd4c242677 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_47367df66d1d6f91fa688ecc424c3fa6 = $(`<div id="html_47367df66d1d6f91fa688ecc424c3fa6" style="width: 100.0%; height: 100.0%;"><b>Score: 0.0/100</b><br>Est. revenue: 161,911 PLN<br>H3: 861e05867ffffff</div>`)[0];
+                popup_bc0304d8b9f07431f44f5cdd4c242677.setContent(html_47367df66d1d6f91fa688ecc424c3fa6);
+            
+        
+
+        marker_9739bf5d32c9cbd3b5d7385da3aef589.bindPopup(popup_bc0304d8b9f07431f44f5cdd4c242677)
+        ;
+
+        
+    
+    
+                marker_9739bf5d32c9cbd3b5d7385da3aef589.setIcon(icon_f67003cb172b6e8c03f9fe59781ace1d);
+            
+    
+            var marker_eb78feb899546ddfb661f80f9cd028ea = L.marker(
+                [50.14186886616262, 18.750550947905303],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_88f952440d974f1811dc8cc890261c07 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_821f54f9aa40508f271c3e91f326c655 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_46ce43348b1485850f88fea906f84337 = $(`<div id="html_46ce43348b1485850f88fea906f84337" style="width: 100.0%; height: 100.0%;"><b>Score: 0.6/100</b><br>Est. revenue: 162,828 PLN<br>H3: 861e2364fffffff</div>`)[0];
+                popup_821f54f9aa40508f271c3e91f326c655.setContent(html_46ce43348b1485850f88fea906f84337);
+            
+        
+
+        marker_eb78feb899546ddfb661f80f9cd028ea.bindPopup(popup_821f54f9aa40508f271c3e91f326c655)
+        ;
+
+        
+    
+    
+                marker_eb78feb899546ddfb661f80f9cd028ea.setIcon(icon_88f952440d974f1811dc8cc890261c07);
+            
+    
+            var marker_69f6550256c7429db92433cfaa132775 = L.marker(
+                [49.9906516065629, 19.774155946792362],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_29af65eecbbd5c485afbf76acb8cd93e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_62214d757e02a835262f0c3ea7df7418 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_910283e1b7e1812fce7b91fd8d9d9a28 = $(`<div id="html_910283e1b7e1812fce7b91fd8d9d9a28" style="width: 100.0%; height: 100.0%;"><b>Score: 2.6/100</b><br>Est. revenue: 166,119 PLN<br>H3: 861e05b5fffffff</div>`)[0];
+                popup_62214d757e02a835262f0c3ea7df7418.setContent(html_910283e1b7e1812fce7b91fd8d9d9a28);
+            
+        
+
+        marker_69f6550256c7429db92433cfaa132775.bindPopup(popup_62214d757e02a835262f0c3ea7df7418)
+        ;
+
+        
+    
+    
+                marker_69f6550256c7429db92433cfaa132775.setIcon(icon_29af65eecbbd5c485afbf76acb8cd93e);
+            
+    
+            var marker_1444d7b662aac71304bd71a917c43e57 = L.marker(
+                [50.228549386792636, 18.55944305710364],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_1d413c978a9fa8e4f7e0b141bf515c2f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_918958446ce80954c58732042a021f41 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_5ea2f010224c1d3313e749e2497c9f79 = $(`<div id="html_5ea2f010224c1d3313e749e2497c9f79" style="width: 100.0%; height: 100.0%;"><b>Score: 3.8/100</b><br>Est. revenue: 168,149 PLN<br>H3: 861e2375fffffff</div>`)[0];
+                popup_918958446ce80954c58732042a021f41.setContent(html_5ea2f010224c1d3313e749e2497c9f79);
+            
+        
+
+        marker_1444d7b662aac71304bd71a917c43e57.bindPopup(popup_918958446ce80954c58732042a021f41)
+        ;
+
+        
+    
+    
+                marker_1444d7b662aac71304bd71a917c43e57.setIcon(icon_1d413c978a9fa8e4f7e0b141bf515c2f);
+            
+    
+            var marker_6dc7a53106a10691f96ce59f8aab26d1 = L.marker(
+                [50.08827872286981, 18.76774983256536],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_e109ccec03e9af0d533eef049d5d9aeb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_afa5336fb2a08424c765e5c0a3ee065a = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_6fd4b2d5c3ebc5309dad43933af4e02b = $(`<div id="html_6fd4b2d5c3ebc5309dad43933af4e02b" style="width: 100.0%; height: 100.0%;"><b>Score: 3.9/100</b><br>Est. revenue: 168,426 PLN<br>H3: 861e059a7ffffff</div>`)[0];
+                popup_afa5336fb2a08424c765e5c0a3ee065a.setContent(html_6fd4b2d5c3ebc5309dad43933af4e02b);
+            
+        
+
+        marker_6dc7a53106a10691f96ce59f8aab26d1.bindPopup(popup_afa5336fb2a08424c765e5c0a3ee065a)
+        ;
+
+        
+    
+    
+                marker_6dc7a53106a10691f96ce59f8aab26d1.setIcon(icon_e109ccec03e9af0d533eef049d5d9aeb);
+            
+    
+            var marker_9613d541ebd429b13bf47ac491338c7a = L.marker(
+                [50.06192357245474, 19.67107393920248],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_c2a1a65d218de06cf399d6f1585b9bde = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_83e87f15f848fe5a0c2be42b8a4119eb = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_cae2afdff788e57e6e157c2046c795a7 = $(`<div id="html_cae2afdff788e57e6e157c2046c795a7" style="width: 100.0%; height: 100.0%;"><b>Score: 3.9/100</b><br>Est. revenue: 168,346 PLN<br>H3: 861e05b77ffffff</div>`)[0];
+                popup_83e87f15f848fe5a0c2be42b8a4119eb.setContent(html_cae2afdff788e57e6e157c2046c795a7);
+            
+        
+
+        marker_9613d541ebd429b13bf47ac491338c7a.bindPopup(popup_83e87f15f848fe5a0c2be42b8a4119eb)
+        ;
+
+        
+    
+    
+                marker_9613d541ebd429b13bf47ac491338c7a.setIcon(icon_c2a1a65d218de06cf399d6f1585b9bde);
+            
+    
+            var marker_91e0bf261bfbbc3e951b4392876e7921 = L.marker(
+                [50.31116852292873, 19.43086659376066],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_6ce10374e25203dd400595df57488a00 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_82f3b0cf8c9c017ff15e56bd631a8514 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_21d7feb3d87329cc79ed596c84d04295 = $(`<div id="html_21d7feb3d87329cc79ed596c84d04295" style="width: 100.0%; height: 100.0%;"><b>Score: 4.4/100</b><br>Est. revenue: 169,222 PLN<br>H3: 861e2e437ffffff</div>`)[0];
+                popup_82f3b0cf8c9c017ff15e56bd631a8514.setContent(html_21d7feb3d87329cc79ed596c84d04295);
+            
+        
+
+        marker_91e0bf261bfbbc3e951b4392876e7921.bindPopup(popup_82f3b0cf8c9c017ff15e56bd631a8514)
+        ;
+
+        
+    
+    
+                marker_91e0bf261bfbbc3e951b4392876e7921.setIcon(icon_6ce10374e25203dd400595df57488a00);
+            
+    
+            var marker_4ad6304d3546ba622d5a42f3c8fa9e7b = L.marker(
+                [50.00105035835695, 18.95829753045003],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_04a56e59b47bf54a4213891971e15490 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7e5890e159607ebbe42df56098346d1d = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_26b918dd81e2ba2913a2d3e7c1dc763a = $(`<div id="html_26b918dd81e2ba2913a2d3e7c1dc763a" style="width: 100.0%; height: 100.0%;"><b>Score: 5.6/100</b><br>Est. revenue: 171,121 PLN<br>H3: 861e05817ffffff</div>`)[0];
+                popup_7e5890e159607ebbe42df56098346d1d.setContent(html_26b918dd81e2ba2913a2d3e7c1dc763a);
+            
+        
+
+        marker_4ad6304d3546ba622d5a42f3c8fa9e7b.bindPopup(popup_7e5890e159607ebbe42df56098346d1d)
+        ;
+
+        
+    
+    
+                marker_4ad6304d3546ba622d5a42f3c8fa9e7b.setIcon(icon_04a56e59b47bf54a4213891971e15490);
+            
+    
+            var marker_4ffcd5500401f15f7e73ddba7b59d510 = L.marker(
+                [50.12829324051937, 19.080753478673262],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_166852f0e3ee7c6bae4a7b254a0b0a63 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b00a61cb0249e4b08ecec379e267c2c6 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_000d5f602795d926ba74971e90b74bd8 = $(`<div id="html_000d5f602795d926ba74971e90b74bd8" style="width: 100.0%; height: 100.0%;"><b>Score: 5.6/100</b><br>Est. revenue: 171,101 PLN<br>H3: 861e05957ffffff</div>`)[0];
+                popup_b00a61cb0249e4b08ecec379e267c2c6.setContent(html_000d5f602795d926ba74971e90b74bd8);
+            
+        
+
+        marker_4ffcd5500401f15f7e73ddba7b59d510.bindPopup(popup_b00a61cb0249e4b08ecec379e267c2c6)
+        ;
+
+        
+    
+    
+                marker_4ffcd5500401f15f7e73ddba7b59d510.setIcon(icon_166852f0e3ee7c6bae4a7b254a0b0a63);
+            
+    
+            var marker_62da5a465f8192ecf7d4b04cdbfec744 = L.marker(
+                [50.29400056513415, 19.517829778435505],
+                {
+}
+            ).addTo(feature_group_8c51c6900635a216beac861fa27941d9);
+        
+    
+            var icon_017a4318ce85ae91673cd2c0af75266c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "star",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7d69d75ee08b9c802ddad67335f684d3 = L.popup({
+  "maxWidth": 200,
+});
+
+        
+            
+                var html_efaaa713073bb686661dd96ca316d15b = $(`<div id="html_efaaa713073bb686661dd96ca316d15b" style="width: 100.0%; height: 100.0%;"><b>Score: 6.2/100</b><br>Est. revenue: 172,083 PLN<br>H3: 861e2e407ffffff</div>`)[0];
+                popup_7d69d75ee08b9c802ddad67335f684d3.setContent(html_efaaa713073bb686661dd96ca316d15b);
+            
+        
+
+        marker_62da5a465f8192ecf7d4b04cdbfec744.bindPopup(popup_7d69d75ee08b9c802ddad67335f684d3)
+        ;
+
+        
+    
+    
+                marker_62da5a465f8192ecf7d4b04cdbfec744.setIcon(icon_017a4318ce85ae91673cd2c0af75266c);
+            
+    
+            feature_group_8c51c6900635a216beac861fa27941d9.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+            var feature_group_b5ffde61fb6d86f1a5fe98531792dd42 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_93d2408895b253f3ff89187fddcca171 = L.circleMarker(
+                [50.226272, 19.072973],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e90422d7116d517c516830d1a37cd676 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_55fe0320efa27bc0e40678375fe23e32 = $(`<div id="html_55fe0320efa27bc0e40678375fe23e32" style="width: 100.0%; height: 100.0%;">LOC_001: 245,634 PLN</div>`)[0];
+                popup_e90422d7116d517c516830d1a37cd676.setContent(html_55fe0320efa27bc0e40678375fe23e32);
+            
+        
+
+        circle_marker_93d2408895b253f3ff89187fddcca171.bindPopup(popup_e90422d7116d517c516830d1a37cd676)
+        ;
+
+        
+    
+    
+            var circle_marker_bb134415ad6bc697d40a297492c844a7 = L.circleMarker(
+                [50.299999, 18.674625],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e03a911122ddb92c66af28adba6e1e1d = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4c4e9fa78f249a2c2b01601611c772a8 = $(`<div id="html_4c4e9fa78f249a2c2b01601611c772a8" style="width: 100.0%; height: 100.0%;">LOC_002: 333,393 PLN</div>`)[0];
+                popup_e03a911122ddb92c66af28adba6e1e1d.setContent(html_4c4e9fa78f249a2c2b01601611c772a8);
+            
+        
+
+        circle_marker_bb134415ad6bc697d40a297492c844a7.bindPopup(popup_e03a911122ddb92c66af28adba6e1e1d)
+        ;
+
+        
+    
+    
+            var circle_marker_19258ec84d6b69a82b1d8eec23be7c3b = L.circleMarker(
+                [50.042894, 19.968676],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_dd16b7a604504b1df19d50d4d663f926 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_08b6f08d18b82da96334568c10c0056b = $(`<div id="html_08b6f08d18b82da96334568c10c0056b" style="width: 100.0%; height: 100.0%;">LOC_003: 296,110 PLN</div>`)[0];
+                popup_dd16b7a604504b1df19d50d4d663f926.setContent(html_08b6f08d18b82da96334568c10c0056b);
+            
+        
+
+        circle_marker_19258ec84d6b69a82b1d8eec23be7c3b.bindPopup(popup_dd16b7a604504b1df19d50d4d663f926)
+        ;
+
+        
+    
+    
+            var circle_marker_7e81c731461bc159a43b1c90967b729b = L.circleMarker(
+                [50.130954, 19.607709],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_fbc7fe0a50f647b41eb8bd746da721eb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_593ce71a49741a021e4f4c7e5bbeba2f = $(`<div id="html_593ce71a49741a021e4f4c7e5bbeba2f" style="width: 100.0%; height: 100.0%;">LOC_004: 197,099 PLN</div>`)[0];
+                popup_fbc7fe0a50f647b41eb8bd746da721eb.setContent(html_593ce71a49741a021e4f4c7e5bbeba2f);
+            
+        
+
+        circle_marker_7e81c731461bc159a43b1c90967b729b.bindPopup(popup_fbc7fe0a50f647b41eb8bd746da721eb)
+        ;
+
+        
+    
+    
+            var circle_marker_38883581525512744ed1d9dafc73fad0 = L.circleMarker(
+                [50.351594, 18.894944],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e90fcd77898136402d20ec4e84bc6590 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f7642bced1f22b36a88560d095785ad3 = $(`<div id="html_f7642bced1f22b36a88560d095785ad3" style="width: 100.0%; height: 100.0%;">LOC_005: 292,787 PLN</div>`)[0];
+                popup_e90fcd77898136402d20ec4e84bc6590.setContent(html_f7642bced1f22b36a88560d095785ad3);
+            
+        
+
+        circle_marker_38883581525512744ed1d9dafc73fad0.bindPopup(popup_e90fcd77898136402d20ec4e84bc6590)
+        ;
+
+        
+    
+    
+            var circle_marker_c546addfe30dd5ffdf91cbf3f5d92eac = L.circleMarker(
+                [50.016769, 20.01029],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_3d64bedb083b0f4a46f497e2c0843b65 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c3dc941f34121e28e6f547219214540c = $(`<div id="html_c3dc941f34121e28e6f547219214540c" style="width: 100.0%; height: 100.0%;">LOC_006: 174,307 PLN</div>`)[0];
+                popup_3d64bedb083b0f4a46f497e2c0843b65.setContent(html_c3dc941f34121e28e6f547219214540c);
+            
+        
+
+        circle_marker_c546addfe30dd5ffdf91cbf3f5d92eac.bindPopup(popup_3d64bedb083b0f4a46f497e2c0843b65)
+        ;
+
+        
+    
+    
+            var circle_marker_ea12537c9f0ec15562100576b16b4c8b = L.circleMarker(
+                [50.283699, 19.017317],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_a1bb816279a01cf6927630b2798dea1e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d333b0832a7c53ede3894694501ab63d = $(`<div id="html_d333b0832a7c53ede3894694501ab63d" style="width: 100.0%; height: 100.0%;">LOC_007: 526,630 PLN</div>`)[0];
+                popup_a1bb816279a01cf6927630b2798dea1e.setContent(html_d333b0832a7c53ede3894694501ab63d);
+            
+        
+
+        circle_marker_ea12537c9f0ec15562100576b16b4c8b.bindPopup(popup_a1bb816279a01cf6927630b2798dea1e)
+        ;
+
+        
+    
+    
+            var circle_marker_d6180faabbc703e6869518182375b533 = L.circleMarker(
+                [50.147486, 18.840116],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_57d6486a5be0ffe5bd27ca087a759e08 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8b20907d60398d3ba08e0391bf4a0161 = $(`<div id="html_8b20907d60398d3ba08e0391bf4a0161" style="width: 100.0%; height: 100.0%;">LOC_008: 156,433 PLN</div>`)[0];
+                popup_57d6486a5be0ffe5bd27ca087a759e08.setContent(html_8b20907d60398d3ba08e0391bf4a0161);
+            
+        
+
+        circle_marker_d6180faabbc703e6869518182375b533.bindPopup(popup_57d6486a5be0ffe5bd27ca087a759e08)
+        ;
+
+        
+    
+    
+            var circle_marker_b45bb3f3b01f6eb7f9672585010f8139 = L.circleMarker(
+                [50.303099, 18.678924],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_b36dfc0d645e4f18ff4bbb92ba280dcc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_bfb028094f34f51395c1f8fdcb309fae = $(`<div id="html_bfb028094f34f51395c1f8fdcb309fae" style="width: 100.0%; height: 100.0%;">LOC_009: 335,019 PLN</div>`)[0];
+                popup_b36dfc0d645e4f18ff4bbb92ba280dcc.setContent(html_bfb028094f34f51395c1f8fdcb309fae);
+            
+        
+
+        circle_marker_b45bb3f3b01f6eb7f9672585010f8139.bindPopup(popup_b36dfc0d645e4f18ff4bbb92ba280dcc)
+        ;
+
+        
+    
+    
+            var circle_marker_00be456dcf89b952a71f9ac4ce3dbccb = L.circleMarker(
+                [50.347639, 18.921651],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e1f5bca2eb106da568471d3bbc4c6635 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca1bac3f96dd9e637cb5f5a01511c874 = $(`<div id="html_ca1bac3f96dd9e637cb5f5a01511c874" style="width: 100.0%; height: 100.0%;">LOC_010: 355,289 PLN</div>`)[0];
+                popup_e1f5bca2eb106da568471d3bbc4c6635.setContent(html_ca1bac3f96dd9e637cb5f5a01511c874);
+            
+        
+
+        circle_marker_00be456dcf89b952a71f9ac4ce3dbccb.bindPopup(popup_e1f5bca2eb106da568471d3bbc4c6635)
+        ;
+
+        
+    
+    
+            var circle_marker_f201b88c17cd6980fbe4fcffd54c19b7 = L.circleMarker(
+                [50.121043, 18.54847],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_db9494bc1a5eee1f3c76a603f6b6a598 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4d8723e6f3875bec2edb9b24b1b8e9bb = $(`<div id="html_4d8723e6f3875bec2edb9b24b1b8e9bb" style="width: 100.0%; height: 100.0%;">LOC_011: 306,718 PLN</div>`)[0];
+                popup_db9494bc1a5eee1f3c76a603f6b6a598.setContent(html_4d8723e6f3875bec2edb9b24b1b8e9bb);
+            
+        
+
+        circle_marker_f201b88c17cd6980fbe4fcffd54c19b7.bindPopup(popup_db9494bc1a5eee1f3c76a603f6b6a598)
+        ;
+
+        
+    
+    
+            var circle_marker_acb4cdc77065e8899980bc8eada1fa6a = L.circleMarker(
+                [50.360509, 19.049077],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_cf3f945714aceb54f9712adec8c04a31 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2cb4c4c020b24fc16eba2028d0325189 = $(`<div id="html_2cb4c4c020b24fc16eba2028d0325189" style="width: 100.0%; height: 100.0%;">LOC_012: 257,169 PLN</div>`)[0];
+                popup_cf3f945714aceb54f9712adec8c04a31.setContent(html_2cb4c4c020b24fc16eba2028d0325189);
+            
+        
+
+        circle_marker_acb4cdc77065e8899980bc8eada1fa6a.bindPopup(popup_cf3f945714aceb54f9712adec8c04a31)
+        ;
+
+        
+    
+    
+            var circle_marker_6cbd79da4fba77f4334a993994445cbc = L.circleMarker(
+                [50.266171, 18.894791],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_dff9dd26187a32f950bbd72ffbcf8dcf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c9a316527f597d900fa58a74e60bc7e5 = $(`<div id="html_c9a316527f597d900fa58a74e60bc7e5" style="width: 100.0%; height: 100.0%;">LOC_013: 279,873 PLN</div>`)[0];
+                popup_dff9dd26187a32f950bbd72ffbcf8dcf.setContent(html_c9a316527f597d900fa58a74e60bc7e5);
+            
+        
+
+        circle_marker_6cbd79da4fba77f4334a993994445cbc.bindPopup(popup_dff9dd26187a32f950bbd72ffbcf8dcf)
+        ;
+
+        
+    
+    
+            var circle_marker_3c4ed2d7673544356acf650ece0a1c3b = L.circleMarker(
+                [50.101874, 19.929553],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_b1dec0284e6b07c686be20c4ef9b5d11 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_81da61bf0345c3def8b7a27f4a86cfb3 = $(`<div id="html_81da61bf0345c3def8b7a27f4a86cfb3" style="width: 100.0%; height: 100.0%;">LOC_014: 392,436 PLN</div>`)[0];
+                popup_b1dec0284e6b07c686be20c4ef9b5d11.setContent(html_81da61bf0345c3def8b7a27f4a86cfb3);
+            
+        
+
+        circle_marker_3c4ed2d7673544356acf650ece0a1c3b.bindPopup(popup_b1dec0284e6b07c686be20c4ef9b5d11)
+        ;
+
+        
+    
+    
+            var circle_marker_11a32f82f2cc57f54443979d87f4324b = L.circleMarker(
+                [50.315698, 19.117433],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_b25bdc12696edcd57b10034257f28cc6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0096e4e16764a74543914dbae7d6ccd6 = $(`<div id="html_0096e4e16764a74543914dbae7d6ccd6" style="width: 100.0%; height: 100.0%;">LOC_015: 266,356 PLN</div>`)[0];
+                popup_b25bdc12696edcd57b10034257f28cc6.setContent(html_0096e4e16764a74543914dbae7d6ccd6);
+            
+        
+
+        circle_marker_11a32f82f2cc57f54443979d87f4324b.bindPopup(popup_b25bdc12696edcd57b10034257f28cc6)
+        ;
+
+        
+    
+    
+            var circle_marker_34be3a505f30faebb719addae5c53b72 = L.circleMarker(
+                [50.026999, 19.920654],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_fae9050ca89c95404bd81bdc99e57d43 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_38dbfcf1a8f9b846a2a4e676599f134a = $(`<div id="html_38dbfcf1a8f9b846a2a4e676599f134a" style="width: 100.0%; height: 100.0%;">LOC_016: 238,946 PLN</div>`)[0];
+                popup_fae9050ca89c95404bd81bdc99e57d43.setContent(html_38dbfcf1a8f9b846a2a4e676599f134a);
+            
+        
+
+        circle_marker_34be3a505f30faebb719addae5c53b72.bindPopup(popup_fae9050ca89c95404bd81bdc99e57d43)
+        ;
+
+        
+    
+    
+            var circle_marker_b9dd5e8f581abfe264bd0bfe25452a54 = L.circleMarker(
+                [50.281363, 18.670286],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_69d59cfae36a8f296102e3dc88a4cf98 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cf53fc97464393c35ffbb49249576665 = $(`<div id="html_cf53fc97464393c35ffbb49249576665" style="width: 100.0%; height: 100.0%;">LOC_017: 232,816 PLN</div>`)[0];
+                popup_69d59cfae36a8f296102e3dc88a4cf98.setContent(html_cf53fc97464393c35ffbb49249576665);
+            
+        
+
+        circle_marker_b9dd5e8f581abfe264bd0bfe25452a54.bindPopup(popup_69d59cfae36a8f296102e3dc88a4cf98)
+        ;
+
+        
+    
+    
+            var circle_marker_260177f96aa1a62e39e6dbd638abd88a = L.circleMarker(
+                [50.100659, 18.99341],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e4e11cc263455ecd89332817ed791e70 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6c2f448cd7d94901503dbdea72d752b6 = $(`<div id="html_6c2f448cd7d94901503dbdea72d752b6" style="width: 100.0%; height: 100.0%;">LOC_018: 285,754 PLN</div>`)[0];
+                popup_e4e11cc263455ecd89332817ed791e70.setContent(html_6c2f448cd7d94901503dbdea72d752b6);
+            
+        
+
+        circle_marker_260177f96aa1a62e39e6dbd638abd88a.bindPopup(popup_e4e11cc263455ecd89332817ed791e70)
+        ;
+
+        
+    
+    
+            var circle_marker_c35ec089642e5872e1dfa560722ea4a3 = L.circleMarker(
+                [50.261991, 19.026051],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_163229570c9a84a8d9438e30df669a7b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_ca7134609d282866cfcf6e2089172fe0 = $(`<div id="html_ca7134609d282866cfcf6e2089172fe0" style="width: 100.0%; height: 100.0%;">LOC_019: 623,866 PLN</div>`)[0];
+                popup_163229570c9a84a8d9438e30df669a7b.setContent(html_ca7134609d282866cfcf6e2089172fe0);
+            
+        
+
+        circle_marker_c35ec089642e5872e1dfa560722ea4a3.bindPopup(popup_163229570c9a84a8d9438e30df669a7b)
+        ;
+
+        
+    
+    
+            var circle_marker_0cba67178cbc99733352b94f5c35310a = L.circleMarker(
+                [50.097038, 19.961254],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_356b688ed7b825c0ac70ce508542f194 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_653c56a21e0708324465830b63b2d1a3 = $(`<div id="html_653c56a21e0708324465830b63b2d1a3" style="width: 100.0%; height: 100.0%;">LOC_020: 310,361 PLN</div>`)[0];
+                popup_356b688ed7b825c0ac70ce508542f194.setContent(html_653c56a21e0708324465830b63b2d1a3);
+            
+        
+
+        circle_marker_0cba67178cbc99733352b94f5c35310a.bindPopup(popup_356b688ed7b825c0ac70ce508542f194)
+        ;
+
+        
+    
+    
+            var circle_marker_cbab5f6c80fd75144589a72c206cade1 = L.circleMarker(
+                [50.019016, 19.927269],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_60a22478718feab4cbc3ff1462ad4cb1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_62a5ac9b19b50681c1813b2f2942bb4f = $(`<div id="html_62a5ac9b19b50681c1813b2f2942bb4f" style="width: 100.0%; height: 100.0%;">LOC_021: 320,424 PLN</div>`)[0];
+                popup_60a22478718feab4cbc3ff1462ad4cb1.setContent(html_62a5ac9b19b50681c1813b2f2942bb4f);
+            
+        
+
+        circle_marker_cbab5f6c80fd75144589a72c206cade1.bindPopup(popup_60a22478718feab4cbc3ff1462ad4cb1)
+        ;
+
+        
+    
+    
+            var circle_marker_2df048d244481b6fea0b4a82cc37b521 = L.circleMarker(
+                [50.096971, 19.912718],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_c4613a56da46aa01bd96888c7c2ac686 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cc6debe4b9597094c0112eb56256a9cb = $(`<div id="html_cc6debe4b9597094c0112eb56256a9cb" style="width: 100.0%; height: 100.0%;">LOC_022: 311,493 PLN</div>`)[0];
+                popup_c4613a56da46aa01bd96888c7c2ac686.setContent(html_cc6debe4b9597094c0112eb56256a9cb);
+            
+        
+
+        circle_marker_2df048d244481b6fea0b4a82cc37b521.bindPopup(popup_c4613a56da46aa01bd96888c7c2ac686)
+        ;
+
+        
+    
+    
+            var circle_marker_5720f5ea78dd3214a9a301aa155616b3 = L.circleMarker(
+                [50.225812, 18.976277],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_fd63ced27db3ddf4a599dd8a453ca88e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_a2fe6b21128498a7e8073d667219a118 = $(`<div id="html_a2fe6b21128498a7e8073d667219a118" style="width: 100.0%; height: 100.0%;">LOC_023: 262,155 PLN</div>`)[0];
+                popup_fd63ced27db3ddf4a599dd8a453ca88e.setContent(html_a2fe6b21128498a7e8073d667219a118);
+            
+        
+
+        circle_marker_5720f5ea78dd3214a9a301aa155616b3.bindPopup(popup_fd63ced27db3ddf4a599dd8a453ca88e)
+        ;
+
+        
+    
+    
+            var circle_marker_cf4491796ed98f4ce934e7d0c169c722 = L.circleMarker(
+                [50.244682, 20.081011],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_21c6096d9e88b36fb91908c9cc49501e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6ea785a7e390a4301fa8d866b70f7104 = $(`<div id="html_6ea785a7e390a4301fa8d866b70f7104" style="width: 100.0%; height: 100.0%;">LOC_024: 218,318 PLN</div>`)[0];
+                popup_21c6096d9e88b36fb91908c9cc49501e.setContent(html_6ea785a7e390a4301fa8d866b70f7104);
+            
+        
+
+        circle_marker_cf4491796ed98f4ce934e7d0c169c722.bindPopup(popup_21c6096d9e88b36fb91908c9cc49501e)
+        ;
+
+        
+    
+    
+            var circle_marker_fa61ac4349759640f548a7fa5261f487 = L.circleMarker(
+                [49.994134, 20.053555],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_ade80f662abca2953f99f189542ef3f3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_204fcc4dc4c180d0b3e65b449242d484 = $(`<div id="html_204fcc4dc4c180d0b3e65b449242d484" style="width: 100.0%; height: 100.0%;">LOC_025: 231,470 PLN</div>`)[0];
+                popup_ade80f662abca2953f99f189542ef3f3.setContent(html_204fcc4dc4c180d0b3e65b449242d484);
+            
+        
+
+        circle_marker_fa61ac4349759640f548a7fa5261f487.bindPopup(popup_ade80f662abca2953f99f189542ef3f3)
+        ;
+
+        
+    
+    
+            var circle_marker_184065245833510effa8518702ee5ad0 = L.circleMarker(
+                [50.36527, 19.027023],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_f65e83173cb4c89021cc5f923a198245 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4d402893ec7fc75bf9d5028b2c98f234 = $(`<div id="html_4d402893ec7fc75bf9d5028b2c98f234" style="width: 100.0%; height: 100.0%;">LOC_026: 172,989 PLN</div>`)[0];
+                popup_f65e83173cb4c89021cc5f923a198245.setContent(html_4d402893ec7fc75bf9d5028b2c98f234);
+            
+        
+
+        circle_marker_184065245833510effa8518702ee5ad0.bindPopup(popup_f65e83173cb4c89021cc5f923a198245)
+        ;
+
+        
+    
+    
+            var circle_marker_b3eb3d4873498bde04cada369992928a = L.circleMarker(
+                [50.306119, 19.181442],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_df414f8201606d26da61f3b843cb4e7c = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9e8828bb7b1e718ab283d1f6b55e3dc6 = $(`<div id="html_9e8828bb7b1e718ab283d1f6b55e3dc6" style="width: 100.0%; height: 100.0%;">LOC_027: 288,519 PLN</div>`)[0];
+                popup_df414f8201606d26da61f3b843cb4e7c.setContent(html_9e8828bb7b1e718ab283d1f6b55e3dc6);
+            
+        
+
+        circle_marker_b3eb3d4873498bde04cada369992928a.bindPopup(popup_df414f8201606d26da61f3b843cb4e7c)
+        ;
+
+        
+    
+    
+            var circle_marker_521fb16b961a17e254112edd62cbc1fa = L.circleMarker(
+                [50.203964, 19.046848],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_59c45fdf34691cb433cd0a04169cae61 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1cc00a0d53ec60017ce697de6a377815 = $(`<div id="html_1cc00a0d53ec60017ce697de6a377815" style="width: 100.0%; height: 100.0%;">LOC_028: 323,176 PLN</div>`)[0];
+                popup_59c45fdf34691cb433cd0a04169cae61.setContent(html_1cc00a0d53ec60017ce697de6a377815);
+            
+        
+
+        circle_marker_521fb16b961a17e254112edd62cbc1fa.bindPopup(popup_59c45fdf34691cb433cd0a04169cae61)
+        ;
+
+        
+    
+    
+            var circle_marker_65a48a9c56fb552312dcad0f16a94789 = L.circleMarker(
+                [50.321487, 19.134686],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_2066e10818889aeb0785810debccedcd = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d5955043dba47e31c681fdfaee9e6c67 = $(`<div id="html_d5955043dba47e31c681fdfaee9e6c67" style="width: 100.0%; height: 100.0%;">LOC_029: 319,279 PLN</div>`)[0];
+                popup_2066e10818889aeb0785810debccedcd.setContent(html_d5955043dba47e31c681fdfaee9e6c67);
+            
+        
+
+        circle_marker_65a48a9c56fb552312dcad0f16a94789.bindPopup(popup_2066e10818889aeb0785810debccedcd)
+        ;
+
+        
+    
+    
+            var circle_marker_5853759f9e6837d49e7f6e93d31138e7 = L.circleMarker(
+                [50.304572, 18.91806],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_7e2f28116fa9142c3c517b2157a26df6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_641cb29f60b5370ace0a0a360c7b4fb0 = $(`<div id="html_641cb29f60b5370ace0a0a360c7b4fb0" style="width: 100.0%; height: 100.0%;">LOC_030: 167,861 PLN</div>`)[0];
+                popup_7e2f28116fa9142c3c517b2157a26df6.setContent(html_641cb29f60b5370ace0a0a360c7b4fb0);
+            
+        
+
+        circle_marker_5853759f9e6837d49e7f6e93d31138e7.bindPopup(popup_7e2f28116fa9142c3c517b2157a26df6)
+        ;
+
+        
+    
+    
+            var circle_marker_e0d9e0ccdbbb61f494f6da047bd39606 = L.circleMarker(
+                [50.100066, 19.890332],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_3dec4a582c31fc20974487250edeb731 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_f9d470f33a5a7d9ccca6ecedde34aa72 = $(`<div id="html_f9d470f33a5a7d9ccca6ecedde34aa72" style="width: 100.0%; height: 100.0%;">LOC_031: 353,666 PLN</div>`)[0];
+                popup_3dec4a582c31fc20974487250edeb731.setContent(html_f9d470f33a5a7d9ccca6ecedde34aa72);
+            
+        
+
+        circle_marker_e0d9e0ccdbbb61f494f6da047bd39606.bindPopup(popup_3dec4a582c31fc20974487250edeb731)
+        ;
+
+        
+    
+    
+            var circle_marker_0cbe036449ca26c28eab6accb7348f99 = L.circleMarker(
+                [50.141958, 19.192459],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_bb937c5b242a2e9f1c85d4eb26e3d94b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_30bb8656924d3a2fc959dc091db221b9 = $(`<div id="html_30bb8656924d3a2fc959dc091db221b9" style="width: 100.0%; height: 100.0%;">LOC_032: 173,229 PLN</div>`)[0];
+                popup_bb937c5b242a2e9f1c85d4eb26e3d94b.setContent(html_30bb8656924d3a2fc959dc091db221b9);
+            
+        
+
+        circle_marker_0cbe036449ca26c28eab6accb7348f99.bindPopup(popup_bb937c5b242a2e9f1c85d4eb26e3d94b)
+        ;
+
+        
+    
+    
+            var circle_marker_5b99007de9bc9b14068ec06ac3994347 = L.circleMarker(
+                [50.280179, 19.565872],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_f71054bef1067d0fade9216370b1b811 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_49af843f8e151f6f7170a9d09a9ae014 = $(`<div id="html_49af843f8e151f6f7170a9d09a9ae014" style="width: 100.0%; height: 100.0%;">LOC_033: 50,000 PLN</div>`)[0];
+                popup_f71054bef1067d0fade9216370b1b811.setContent(html_49af843f8e151f6f7170a9d09a9ae014);
+            
+        
+
+        circle_marker_5b99007de9bc9b14068ec06ac3994347.bindPopup(popup_f71054bef1067d0fade9216370b1b811)
+        ;
+
+        
+    
+    
+            var circle_marker_86ede40dae43d2e2e50ae3c6b16b0dc2 = L.circleMarker(
+                [50.296747, 18.658205],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_17a3aabd309b205fae805c79aada4d95 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d4bedc29d8d869690b3fe7a1d2c71cbc = $(`<div id="html_d4bedc29d8d869690b3fe7a1d2c71cbc" style="width: 100.0%; height: 100.0%;">LOC_034: 200,236 PLN</div>`)[0];
+                popup_17a3aabd309b205fae805c79aada4d95.setContent(html_d4bedc29d8d869690b3fe7a1d2c71cbc);
+            
+        
+
+        circle_marker_86ede40dae43d2e2e50ae3c6b16b0dc2.bindPopup(popup_17a3aabd309b205fae805c79aada4d95)
+        ;
+
+        
+    
+    
+            var circle_marker_42a9e146da91f9920e7f450fc7babf62 = L.circleMarker(
+                [50.07503, 20.013764],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_270fe1c7dc77befe12a912aac93554df = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cf2f5d52ed21efb6ce4bc126d7f39c5c = $(`<div id="html_cf2f5d52ed21efb6ce4bc126d7f39c5c" style="width: 100.0%; height: 100.0%;">LOC_035: 259,759 PLN</div>`)[0];
+                popup_270fe1c7dc77befe12a912aac93554df.setContent(html_cf2f5d52ed21efb6ce4bc126d7f39c5c);
+            
+        
+
+        circle_marker_42a9e146da91f9920e7f450fc7babf62.bindPopup(popup_270fe1c7dc77befe12a912aac93554df)
+        ;
+
+        
+    
+    
+            var circle_marker_8936820aeb72f6fb2e9d4dc1159f1f79 = L.circleMarker(
+                [50.015621, 19.951247],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_fbb9f0a1ae62e801e1a63ce72c8cb0a4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0ad305503a1a9b82dc5a5c176c241775 = $(`<div id="html_0ad305503a1a9b82dc5a5c176c241775" style="width: 100.0%; height: 100.0%;">LOC_036: 349,741 PLN</div>`)[0];
+                popup_fbb9f0a1ae62e801e1a63ce72c8cb0a4.setContent(html_0ad305503a1a9b82dc5a5c176c241775);
+            
+        
+
+        circle_marker_8936820aeb72f6fb2e9d4dc1159f1f79.bindPopup(popup_fbb9f0a1ae62e801e1a63ce72c8cb0a4)
+        ;
+
+        
+    
+    
+            var circle_marker_df92545c0d7528785c97276eb7cf1cb0 = L.circleMarker(
+                [50.163899, 19.977864],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_5dd5b9c2bece57801b13cb16e81ddff1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d34d70aba5f6c5c52f2bbbb871810771 = $(`<div id="html_d34d70aba5f6c5c52f2bbbb871810771" style="width: 100.0%; height: 100.0%;">LOC_037: 227,013 PLN</div>`)[0];
+                popup_5dd5b9c2bece57801b13cb16e81ddff1.setContent(html_d34d70aba5f6c5c52f2bbbb871810771);
+            
+        
+
+        circle_marker_df92545c0d7528785c97276eb7cf1cb0.bindPopup(popup_5dd5b9c2bece57801b13cb16e81ddff1)
+        ;
+
+        
+    
+    
+            var circle_marker_cd6eb543a5d14e138014dac2c66af7a9 = L.circleMarker(
+                [50.189307, 18.62252],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_4daf4f456916121a834460c299c64d89 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c90652b1be338e08e3053bb67047e2e1 = $(`<div id="html_c90652b1be338e08e3053bb67047e2e1" style="width: 100.0%; height: 100.0%;">LOC_038: 121,446 PLN</div>`)[0];
+                popup_4daf4f456916121a834460c299c64d89.setContent(html_c90652b1be338e08e3053bb67047e2e1);
+            
+        
+
+        circle_marker_cd6eb543a5d14e138014dac2c66af7a9.bindPopup(popup_4daf4f456916121a834460c299c64d89)
+        ;
+
+        
+    
+    
+            var circle_marker_50b902c7df1fca3357e2b15e07871614 = L.circleMarker(
+                [50.05788, 19.963263],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_6d5452e4dae100f16cf2548663221766 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5b57d06c738c0d71bfefce22b166582f = $(`<div id="html_5b57d06c738c0d71bfefce22b166582f" style="width: 100.0%; height: 100.0%;">LOC_039: 473,882 PLN</div>`)[0];
+                popup_6d5452e4dae100f16cf2548663221766.setContent(html_5b57d06c738c0d71bfefce22b166582f);
+            
+        
+
+        circle_marker_50b902c7df1fca3357e2b15e07871614.bindPopup(popup_6d5452e4dae100f16cf2548663221766)
+        ;
+
+        
+    
+    
+            var circle_marker_8fd07ae406a3590fff986bff41c4fc06 = L.circleMarker(
+                [49.965208, 18.956704],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e52db1b67e61fbfbc6e4c96433825360 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_05c924d4f33d2fc1df3b97f29f6aa7e1 = $(`<div id="html_05c924d4f33d2fc1df3b97f29f6aa7e1" style="width: 100.0%; height: 100.0%;">LOC_040: 130,490 PLN</div>`)[0];
+                popup_e52db1b67e61fbfbc6e4c96433825360.setContent(html_05c924d4f33d2fc1df3b97f29f6aa7e1);
+            
+        
+
+        circle_marker_8fd07ae406a3590fff986bff41c4fc06.bindPopup(popup_e52db1b67e61fbfbc6e4c96433825360)
+        ;
+
+        
+    
+    
+            var circle_marker_b96d14f62fd8a15a1f88f3088311ddd8 = L.circleMarker(
+                [49.997572, 19.423463],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_0bd11c77bad97f080400d59b7b24dccb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e1d1c9416dd3122a8bb9e46e18335192 = $(`<div id="html_e1d1c9416dd3122a8bb9e46e18335192" style="width: 100.0%; height: 100.0%;">LOC_041: 178,088 PLN</div>`)[0];
+                popup_0bd11c77bad97f080400d59b7b24dccb.setContent(html_e1d1c9416dd3122a8bb9e46e18335192);
+            
+        
+
+        circle_marker_b96d14f62fd8a15a1f88f3088311ddd8.bindPopup(popup_0bd11c77bad97f080400d59b7b24dccb)
+        ;
+
+        
+    
+    
+            var circle_marker_bf9ad8e5bdea4c8a98836e782c4a5144 = L.circleMarker(
+                [50.098404, 19.998362],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_90af61bf1d13d1523a08957a4c22b15f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8427ef435af3b871a064ba9d229fedee = $(`<div id="html_8427ef435af3b871a064ba9d229fedee" style="width: 100.0%; height: 100.0%;">LOC_042: 314,978 PLN</div>`)[0];
+                popup_90af61bf1d13d1523a08957a4c22b15f.setContent(html_8427ef435af3b871a064ba9d229fedee);
+            
+        
+
+        circle_marker_bf9ad8e5bdea4c8a98836e782c4a5144.bindPopup(popup_90af61bf1d13d1523a08957a4c22b15f)
+        ;
+
+        
+    
+    
+            var circle_marker_2213be8b03efa2a6c9a2c60a1da58526 = L.circleMarker(
+                [50.253639, 19.039906],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_f7e3672d30a3573b3a01ba2d131ad414 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b3e86992e44c3d9bf41247a67c8b6124 = $(`<div id="html_b3e86992e44c3d9bf41247a67c8b6124" style="width: 100.0%; height: 100.0%;">LOC_043: 573,547 PLN</div>`)[0];
+                popup_f7e3672d30a3573b3a01ba2d131ad414.setContent(html_b3e86992e44c3d9bf41247a67c8b6124);
+            
+        
+
+        circle_marker_2213be8b03efa2a6c9a2c60a1da58526.bindPopup(popup_f7e3672d30a3573b3a01ba2d131ad414)
+        ;
+
+        
+    
+    
+            var circle_marker_f3e51cdcc3332b15f9f8ed5884ec435b = L.circleMarker(
+                [50.286421, 18.728948],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_b8072817dbb402f1a01e7e440ecc0e51 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2e24ea82b699791cf39e987ac372db93 = $(`<div id="html_2e24ea82b699791cf39e987ac372db93" style="width: 100.0%; height: 100.0%;">LOC_044: 245,236 PLN</div>`)[0];
+                popup_b8072817dbb402f1a01e7e440ecc0e51.setContent(html_2e24ea82b699791cf39e987ac372db93);
+            
+        
+
+        circle_marker_f3e51cdcc3332b15f9f8ed5884ec435b.bindPopup(popup_b8072817dbb402f1a01e7e440ecc0e51)
+        ;
+
+        
+    
+    
+            var circle_marker_5e2c1023632a3675aa6d8ca727a978fc = L.circleMarker(
+                [50.287326, 18.66314],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e543839af9cd4c0b75fa9e27acf9edc6 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_b84084105adb847d420748dcec985b05 = $(`<div id="html_b84084105adb847d420748dcec985b05" style="width: 100.0%; height: 100.0%;">LOC_045: 259,298 PLN</div>`)[0];
+                popup_e543839af9cd4c0b75fa9e27acf9edc6.setContent(html_b84084105adb847d420748dcec985b05);
+            
+        
+
+        circle_marker_5e2c1023632a3675aa6d8ca727a978fc.bindPopup(popup_e543839af9cd4c0b75fa9e27acf9edc6)
+        ;
+
+        
+    
+    
+            var circle_marker_5f984ab915e5a0063dcbd57c6c15b062 = L.circleMarker(
+                [50.258876, 18.934631],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_4e371c1aa7857f77787fd8d96e1a9502 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_d69fa68aed714d72540795fff6f58dc6 = $(`<div id="html_d69fa68aed714d72540795fff6f58dc6" style="width: 100.0%; height: 100.0%;">LOC_046: 220,895 PLN</div>`)[0];
+                popup_4e371c1aa7857f77787fd8d96e1a9502.setContent(html_d69fa68aed714d72540795fff6f58dc6);
+            
+        
+
+        circle_marker_5f984ab915e5a0063dcbd57c6c15b062.bindPopup(popup_4e371c1aa7857f77787fd8d96e1a9502)
+        ;
+
+        
+    
+    
+            var circle_marker_0d438be36d38e256be475aacd21a12ab = L.circleMarker(
+                [50.276761, 18.795432],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_bd5d27117865f4cd6707287523fb5109 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4bae4c9b631a209af9b661814b80414d = $(`<div id="html_4bae4c9b631a209af9b661814b80414d" style="width: 100.0%; height: 100.0%;">LOC_047: 249,600 PLN</div>`)[0];
+                popup_bd5d27117865f4cd6707287523fb5109.setContent(html_4bae4c9b631a209af9b661814b80414d);
+            
+        
+
+        circle_marker_0d438be36d38e256be475aacd21a12ab.bindPopup(popup_bd5d27117865f4cd6707287523fb5109)
+        ;
+
+        
+    
+    
+            var circle_marker_084a0e2d10fb2afe109494d25f68de41 = L.circleMarker(
+                [50.441998, 18.853005],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_e6dc19f0804e6608c693c13beda72cd5 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_1f0c2cf48d3bed81b59315f6c136fe49 = $(`<div id="html_1f0c2cf48d3bed81b59315f6c136fe49" style="width: 100.0%; height: 100.0%;">LOC_048: 192,525 PLN</div>`)[0];
+                popup_e6dc19f0804e6608c693c13beda72cd5.setContent(html_1f0c2cf48d3bed81b59315f6c136fe49);
+            
+        
+
+        circle_marker_084a0e2d10fb2afe109494d25f68de41.bindPopup(popup_e6dc19f0804e6608c693c13beda72cd5)
+        ;
+
+        
+    
+    
+            var circle_marker_0df57bf76afe64cb15c82837c6e71d28 = L.circleMarker(
+                [50.08963, 19.962518],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_0fff7c2ecba01ed03e8469e727eef35e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0f3f9e3befd95bbd46ee077f9f677bc5 = $(`<div id="html_0f3f9e3befd95bbd46ee077f9f677bc5" style="width: 100.0%; height: 100.0%;">LOC_049: 293,109 PLN</div>`)[0];
+                popup_0fff7c2ecba01ed03e8469e727eef35e.setContent(html_0f3f9e3befd95bbd46ee077f9f677bc5);
+            
+        
+
+        circle_marker_0df57bf76afe64cb15c82837c6e71d28.bindPopup(popup_0fff7c2ecba01ed03e8469e727eef35e)
+        ;
+
+        
+    
+    
+            var circle_marker_980f182c9c922fede37d90121554678e = L.circleMarker(
+                [50.031498, 19.810855],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 6, "stroke": true, "weight": 3}
+            ).addTo(feature_group_b5ffde61fb6d86f1a5fe98531792dd42);
+        
+    
+        var popup_30d0ebc2724569966824bc5ab98fbe9f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2aa98d74045ac3c3ba1101aa35e5a826 = $(`<div id="html_2aa98d74045ac3c3ba1101aa35e5a826" style="width: 100.0%; height: 100.0%;">LOC_050: 174,053 PLN</div>`)[0];
+                popup_30d0ebc2724569966824bc5ab98fbe9f.setContent(html_2aa98d74045ac3c3ba1101aa35e5a826);
+            
+        
+
+        circle_marker_980f182c9c922fede37d90121554678e.bindPopup(popup_30d0ebc2724569966824bc5ab98fbe9f)
+        ;
+
+        
+    
+    
+            feature_group_b5ffde61fb6d86f1a5fe98531792dd42.addTo(map_19457f1cc3fceb5e40b52f3910456527);
+        
+    
+            var layer_control_13aae2bb49e7c7e7a3f58435f16e93cf_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_c1212c6579b6543d6c5534aa01c74aee,
+                },
+                overlays :  {
+                    "Analysis area" : geo_json_8d22a5724f18d70937d36909d5087eab,
+                    "Whitespot score" : heat_map_4a35b77b1dce58da8b247ccb5e47117a,
+                    "Top 10 candidate locations" : feature_group_c4b98f7017990e0d8ed8f45ca8201d64,
+                    "Worst 10 candidate locations" : feature_group_8c51c6900635a216beac861fa27941d9,
+                    "Existing client stores" : feature_group_b5ffde61fb6d86f1a5fe98531792dd42,
+                },
+            };
+            let layer_control_13aae2bb49e7c7e7a3f58435f16e93cf = L.control.layers(
+                layer_control_13aae2bb49e7c7e7a3f58435f16e93cf_layers.base_layers,
+                layer_control_13aae2bb49e7c7e7a3f58435f16e93cf_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_19457f1cc3fceb5e40b52f3910456527);
+
+        
+</script>
+</html>

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whitespot Analysis — dataplace.ai</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #161a22;
+    --surface2: #1e2330;
+    --border: #2a3040;
+    --accent: #4f9cf9;
+    --accent2: #f97b4f;
+    --accent3: #4fd9a0;
+    --text: #e8eaf0;
+    --text-muted: #7a8499;
+    --text-dim: #3d4660;
+    --good: #4fd9a0;
+    --warn: #f9c74f;
+    --bad: #f97b4f;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,15,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 2rem;
+    height: 52px;
+    overflow-x: auto;
+  }
+
+  nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0 1rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  nav a:hover { color: var(--text); }
+  nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  nav .logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+    margin-right: 1.5rem;
+    white-space: nowrap;
+    border-bottom: none !important;
+  }
+
+  /* LAYOUT */
+  main {
+    margin-top: 52px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    padding: 5rem 0 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  section:last-child { border-bottom: none; }
+
+  /* TYPOGRAPHY */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.01em;
+  }
+
+  p {
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85em;
+    background: var(--surface2);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    color: var(--accent3);
+  }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.5rem 0; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .card.accent-left { border-left: 3px solid var(--accent); }
+  .card.accent-green { border-left: 3px solid var(--accent3); }
+  .card.accent-orange { border-left: 3px solid var(--accent2); }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 1.5rem 0;
+  }
+
+  th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface2); }
+
+  .td-mono { font-family: 'DM Mono', monospace; }
+  .td-good { color: var(--good); font-weight: 500; }
+  .td-best { color: var(--accent); font-weight: 600; }
+  .td-warn { color: var(--warn); }
+  .td-bad { color: var(--bad); }
+
+  /* IMAGES */
+  .img-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+  }
+
+  .img-container img {
+    width: 100%;
+    display: block;
+  }
+
+  .img-caption {
+    padding: 0.6rem 1rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    font-style: italic;
+  }
+
+  /* MAP IFRAME */
+  .map-container {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    height: 520px;
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2em 0.6em;
+    border-radius: 3px;
+    margin-right: 0.3rem;
+  }
+
+  .badge-blue { background: rgba(79,156,249,0.15); color: var(--accent); }
+  .badge-green { background: rgba(79,217,160,0.15); color: var(--accent3); }
+  .badge-orange { background: rgba(249,123,79,0.15); color: var(--accent2); }
+  .badge-gray { background: var(--surface2); color: var(--text-muted); }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(79,156,249,0.08);
+    border: 1px solid rgba(79,156,249,0.25);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  .callout.warn {
+    background: rgba(249,199,79,0.08);
+    border-color: rgba(249,199,79,0.25);
+  }
+
+  .callout.good {
+    background: rgba(79,217,160,0.08);
+    border-color: rgba(79,217,160,0.25);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item { font-size: 13px; color: var(--text-muted); }
+  .hero-meta-item strong { color: var(--text); }
+
+  /* LOCATION CARD */
+  .location-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .location-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+  }
+
+  .location-card.rank-1::before { background: #f9c74f; }
+  .location-card.rank-2::before { background: #adb5bd; }
+  .location-card.rank-3::before { background: #cd7f32; }
+
+  .location-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .location-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .location-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  .location-score span { font-size: 1rem; color: var(--text-muted); }
+
+  .location-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .location-stat {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .location-stat-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .location-stat-key {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* SOURCE TAG */
+  .source-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+  }
+
+  .source-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2rem 0;
+  }
+
+  /* FEATURE BAR */
+  .feature-bar-container { margin: 0.3rem 0; }
+  .feature-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 0.2rem;
+  }
+  .feature-bar-label span:first-child { color: var(--text); }
+  .feature-bar-label span:last-child { font-family: 'DM Mono', monospace; color: var(--accent); }
+  .feature-bar-track {
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .feature-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  ul.styled {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0;
+  }
+  ul.styled li {
+    padding: 0.4rem 0;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    position: relative;
+    font-size: 14px;
+  }
+  ul.styled li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">dataplace.ai</a>
+  <a href="#problem">Problem</a>
+  <a href="#eda">EDA</a>
+  <a href="#features">Features</a>
+  <a href="#model">Model</a>
+  <a href="#whitespot">Whitespot</a>
+  <a href="#wnioski">Wnioski</a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="start">
+  <div class="section-label">Zadanie rekrutacyjne · dataplace.ai · 2026</div>
+  <h1>Analiza potencjału sprzedażowego<br>dla sieci sklepów spożywczych</h1>
+  <p class="hero-sub">Identyfikacja optymalnych lokalizacji pod nowe sklepy spożywcze na obszarze Śląsk-Kraków w oparciu o dane mobilne, demograficzne i przestrzenne.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>50</strong> istniejących lokalizacji</div>
+    <div class="hero-meta-item"><strong>11.6M</strong> sygnałów GPS (Snowflake)</div>
+    <div class="hero-meta-item"><strong>955k</strong> budynków (S3)</div>
+    <div class="hero-meta-item"><strong>162</strong> kandydatów H3 (res. 6)</div>
+  </div>
+</section>
+
+<!-- 1. PROBLEM I DANE -->
+<section id="problem">
+  <div class="section-label">01 · Problem i dane</div>
+  <h2>Cel i źródła danych</h2>
+
+  <p>Celem analizy jest wskazanie lokalizacji o najwyższym potencjale przychodowym dla nowych sklepów spożywczych klienta — z uwzględnieniem istniejącej sieci, konkurencji i danych mobilnych. Wynik: ranking lokalizacji kandydatów z uzasadnieniem.</p>
+
+  <div class="grid-2" style="margin-top:2rem;">
+    <div class="card accent-left">
+      <h3>Lokalne pliki CSV</h3>
+      <ul class="styled">
+        <li><code>ds_locations</code> — 50 sklepów, monthly_revenue (target)</li>
+        <li><code>ds_competitors</code> — 98 lokalizacji, 9 sieci</li>
+        <li><code>ds_poi</code> — 335 punktów, 8 kategorii</li>
+        <li><code>ds_analysis_area</code> — obszar ekspansji</li>
+        <li><code>ds_districts</code> — 15 gmin administracyjnych</li>
+      </ul>
+    </div>
+    <div class="card accent-left">
+      <h3>AWS S3 + Snowflake</h3>
+      <ul class="styled">
+        <li><strong>S3 buildings</strong> — 955 612 budynków z powierzchnią i typem</li>
+        <li><strong>S3 population</strong> — 450 140 rekordów adresowych z liczebnością</li>
+        <li><strong>Snowflake RECRUITMENT_TRACES</strong> — 435M sygnałów GPS (cała Polska)</li>
+        <li>Filtr: bbox + lipiec 2020 → 11.6M sygnałów, ~85k unikalnych userów</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Decyzja projektowa:</strong> Snowflake zawiera dane z całej Polski; stosujemy filtr bbox + lipiec 2020 we wszystkich zapytaniach SQL.
+  </div>
+</section>
+
+<!-- 2. EDA -->
+<section id="eda">
+  <div class="section-label">02 · Exploratory Data Analysis</div>
+  <h2>Kluczowe znaleziska</h2>
+
+  <h3>Rozkład przychodu (target)</h3>
+  <div class="grid-4">
+    <div class="stat-card">
+      <div class="stat-value">50k</div>
+      <div class="stat-label">Min PLN/mies.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">275k</div>
+      <div class="stat-label">Średnia PLN/mies.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">624k</div>
+      <div class="stat-label">Max PLN/mies.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">1.15</div>
+      <div class="stat-label">Skewness</div>
+    </div>
+  </div>
+
+  <div class="img-container">
+    <img src="data/outputs/eda_revenue_distribution.png" alt="Rozkład przychodów">
+    <div class="img-caption">Rozkład monthly_revenue — prawostronnie skośny, typowy dla danych retailowych</div>
+  </div>
+
+  <div class="callout warn">
+    <strong>3 outliery IQR:</strong> LOC_007 (527k), LOC_019 (624k), LOC_043 (574k) — wszystkie zlokalizowane w centrum Katowic (Śródmieście, Wełnowiec). Zachowane w datasecie — realistyczne wartości dla lokalizacji w dużym mieście. Usunięcie 3 z 50 obserwacji (6%) byłoby kosztowne statystycznie.
+  </div>
+
+  <div class="divider"></div>
+  <h3>Konkurencja i POI</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h3>98 lokalizacji konkurencji · 9 sieci</h3>
+      <table>
+        <tr><th>Sieć</th><th>Liczba</th><th>Udział</th></tr>
+        <tr><td>Żabka</td><td class="td-mono">60</td><td class="td-bad">61.2%</td></tr>
+        <tr><td>Lewiatan</td><td class="td-mono">13</td><td class="td-mono">13.3%</td></tr>
+        <tr><td>Lidl</td><td class="td-mono">6</td><td class="td-mono">6.1%</td></tr>
+        <tr><td>Dino, Carrefour</td><td class="td-mono">4+4</td><td class="td-mono">4.1%+4.1%</td></tr>
+        <tr><td>Pozostałe 4</td><td class="td-mono">11</td><td class="td-mono">11.2%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>335 POI · 8 kategorii</h3>
+      <table>
+        <tr><th>Kategoria</th><th>Liczba</th><th>Udział</th></tr>
+        <tr><td>restaurant / school / bus_stop</td><td class="td-mono">60 każda</td><td class="td-mono">17.9%</td></tr>
+        <tr><td>park / pharmacy</td><td class="td-mono">40 każda</td><td class="td-mono">11.9%</td></tr>
+        <tr><td>bank / hospital</td><td class="td-mono">30 każda</td><td class="td-mono">9.0%</td></tr>
+        <tr><td>mall</td><td class="td-mono">15</td><td class="td-mono">4.5%</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+    <h3>Mapa obszaru analizy</h3>
+    <div class="map-container">
+      <iframe src="data/outputs/eda_map.html" title="Mapa EDA"></iframe>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted);">Niebieskie markery — sklepy klienta, czerwone — konkurencja, zielone — POI. Czarna linia — granica analysis_area, szare linie — granice dystryktów.</p>
+
+  <div class="divider"></div>
+  <h3>Obszary analizy — kluczowa decyzja</h3>
+
+  <div class="grid-2">
+    <div class="card accent-orange">
+      <h3>analysis_area ≠ union(districts)</h3>
+      <p style="font-size:13px;">analysis_area to ~87% powierzchni dystryktów. Rozbieżność jest celowa — analysis_area definiuje zakres whitespotu, dystrykt daje szerszy kontekst demograficzny.</p>
+      <p style="font-size:13px;">3 lokalizacje klienta leżą poza analysis_area, ale wewnątrz dystryktów (maks. 1833m od granicy).</p>
+      <div class="callout" style="margin-top:0.75rem; font-size:13px;">
+        <strong>Decyzja:</strong> Wszystkie 50 lokalizacji do treningu modelu. Whitespot search tylko w analysis_area.
+      </div>
+    </div>
+    <div class="card">
+      <h3>Snowflake — wzorce mobilności</h3>
+      <div class="img-container" style="margin:0.5rem 0;">
+        <img src="data/outputs/eda_snowflake_hours.png" alt="Godziny">
+        <div class="img-caption">Szczyt o 6–7 rano (dojazdy do pracy), plateau do 17:00</div>
+      </div>
+      <div class="img-container" style="margin:0.5rem 0;">
+        <img src="data/outputs/eda_snowflake_days.png" alt="Dni tygodnia">
+        <div class="img-caption">Piątek najwyższy, środa najniższa. Uwaga: dane z jednego miesiąca.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:1rem;">
+    <strong>Uwaga:</strong> 70.7% sygnałów pochodzi z jednej aplikacji (app_id nieujawniony). Jeśli ta aplikacja ma specyficzną demografię użytkowników (np. nawigacja, fitness), estymaty footfall mogą być częściowo obciążone.
+  </div>
+</section>
+
+<!-- 3. FEATURE ENGINEERING -->
+<section id="features">
+  <div class="section-label">03 · Feature Engineering</div>
+  <h2>Budowa zestawu cech</h2>
+
+  <p>Dla każdej z 50 lokalizacji obliczono 26 cech przestrzennych w promieniu <strong>1500m</strong>. Funkcje zaimplementowane w <code>src/features.py</code> i przeliczone w notebook <code>02_feature_engineering.ipynb</code>.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Wybór promienia: 1500m</h3>
+      <p style="font-size:13px;">
+        <ul class="styled">
+          <li>Przy 500m większość lokalizacji miała zerowe wartości dla rzadkich kategorii POI (park, szpital, galeria) — near-zero variance uniemożliwiający modelowanie.</li>
+          <li>1500m to naturalny zasięg oddziaływania sklepu spożywczego — odpowiada ~15–20 minutom pieszego spaceru.</li>
+          <li>Większy promień (np. 2500m) zacierałby lokalne różnice — sklepy oddalone o 1km miałyby niemal identyczne cechy, eliminując sygnał dla modelu.</li>
+          <li>Multi-radius features rozważono i odrzucono — przy 26 featurach i n=50 rozszerzenie przestrzeni cech zwiększyłoby ryzyko overfittingu.</li>
+        </ul>
+      </p>
+    </div>
+    <div class="card">
+      <h3>Grupy cech (26 łącznie)</h3>
+      <ul class="styled">
+        <li><strong>Footfall (Snowflake):</strong> signals_1500m, unique_users_1500m</li>
+        <li><strong>Konkurencja:</strong> competitor_count, nearest_competitor_m</li>
+        <li><strong>POI (8 kat.):</strong> count + nearest_distance każda</li>
+        <li><strong>Budynki (S3):</strong> building_count, residential_ratio</li>
+        <li><strong>Populacja (S3):</strong> population_1500m</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Iteracje feature engineeringu</h3>
+  <div class="grid-2">
+    <div class="card accent-orange">
+      <h3>Iteracja 2 — building features</h3>
+      <p style="font-size:13px;">Próba dodania cech z poziomu sklepu: <code>store_building_area</code> i <code>is_retail_building</code> przez spatial join z gdf_buildings. Korelacja z targetem |r| &lt; 0.1 — featury nie wniosły wartości i zostały usunięte.</p>
+    </div>
+    <div class="card accent-orange">
+      <h3>Iteracja 3 — signals_per_user</h3>
+      <p style="font-size:13px;"><code>signals_per_user = signals / unique_users</code> — wskaźnik lojalności. Marginalnie poprawił R² (0.180 vs 0.175), ale różnica mieści się w granicach błędu CV przy n=50 — przy odchyleniu standardowym ±0.45
+        poprawa o 0.005 jest statystycznie nierozróżnialna od szumu. Nie sprawdzono wariantu z <code>signals_per_user</code> zastępującym <code>signals</code> i <code>unique_users</code> — potencjalnie interesujące, jako że feature łączy informację o gęstości i różnorodności ruchu w jednej mierze. Przy ograniczonym czasie i n=50 zdecydowano się zachować bazowy zestaw cech bez dalszych iteracji.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    Wszystkie obliczenia w promieniu wykonywane po reprojekcji do EPSG:2180 (Polska, metryczna). Footfall z Snowflake obliczany przez ST_DWITHIN z TO_GEOGRAPHY — prawidłowe odległości geodezyjne bez reprojekcji po stronie SQL.
+  </div>
+</section>
+
+<!-- 4. MODEL -->
+<section id="model">
+  <div class="section-label">04 · Modelowanie</div>
+  <h2>Predykcja revenue lokalizacji</h2>
+
+  <div class="callout warn">
+    Feature set opisuje otoczenie lokalizacji, nie sam sklep. Model świadomie skupia się na cechach lokalizacyjnych (footfall, demografia, POI) — to właśnie te cechy są dostępne przed otwarciem nowego sklepu i stanowią cel analizy ekspansyjnej.
+  </div>
+
+  <div class="divider"></div>
+  <h3>Korelacje — uzasadnienie wyboru cech</h3>
+  <div class="grid-2">
+    <div class="img-container">
+      <img src="data/outputs/model_correlation_target.png" alt="Korelacje z targetem">
+      <div class="img-caption">Pearson r z monthly_revenue — unique_users, signals i population najsilniej dodatnio, POIs ujemnie (im bliżej, tym wyższy revenue)</div>
+    </div>
+    <div class="img-container">
+      <img src="data/outputs/model_correlation_heatmap.png" alt="Heatmapa korelacji">
+      <div class="img-caption">Pearson correlation między featurami — signals i unique_users silnie skorelowane (r=0.93)</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Testowane modele i wybór finalny</h3>
+  <p>Testowano 8 konfiguracji modeli. Wszystkie oceniane przez RepeatedKFold (5×10), co daje 50 ocen bardziej wiarygodną estymację przy n=50.</p>
+
+  <table>
+    <tr>
+      <th>#</th><th>Model</th><th>Features</th><th>Target</th><th>CV R² mean</th><th>CV R² std</th><th>RMSE</th>
+    </tr>
+    <tr>
+      <td class="td-mono">0</td>
+      <td>Baseline (mean predictor)</td>
+      <td>—</td>
+      <td>raw</td>
+      <td class="td-mono">0.000</td>
+      <td class="td-mono">—</td>
+      <td class="td-mono">106 966 PLN</td>
+    </tr>
+    <tr style="background: rgba(79,156,249,0.06);">
+      <td class="td-mono">1</td>
+      <td><strong>XGBoost regularized ← FINAL</strong></td>
+      <td>full (26)</td>
+      <td>raw</td>
+      <td class="td-best">0.175</td>
+      <td class="td-mono">±0.453</td>
+      <td class="td-good">83 599 PLN</td>
+    </tr>
+    <tr>
+      <td class="td-mono">2</td>
+      <td>XGBoost tuned (GridSearch)</td>
+      <td>full (26)</td>
+      <td>raw</td>
+      <td class="td-warn">0.152</td>
+      <td class="td-mono">±0.465</td>
+      <td class="td-mono">84 601 PLN</td>
+    </tr>
+    <tr>
+      <td class="td-mono">3</td>
+      <td>XGBoost regularized</td>
+      <td>correlated (9)</td>
+      <td>raw</td>
+      <td class="td-mono">0.124</td>
+      <td class="td-mono">±0.523</td>
+      <td class="td-mono">85 666 PLN</td>
+    </tr>
+    <tr>
+      <td class="td-mono">4</td>
+      <td>Ridge (tuned)</td>
+      <td>full (26)</td>
+      <td>log</td>
+      <td class="td-mono">0.033</td>
+      <td class="td-mono">±0.271</td>
+      <td class="td-mono">0.363 log(PLN)</td>
+    </tr>
+    <tr>
+      <td class="td-mono">5</td>
+      <td>LASSO (tuned)</td>
+      <td>full (26)</td>
+      <td>log</td>
+      <td class="td-bad">−0.141</td>
+      <td class="td-mono">±0.420</td>
+      <td class="td-mono">0.387 log(PLN)</td>
+    </tr>
+    <tr>
+      <td class="td-mono">6</td>
+      <td>SVR (rbf, tuned)</td>
+      <td>full (26)</td>
+      <td>log</td>
+      <td class="td-bad">−0.053</td>
+      <td class="td-mono">±0.184</td>
+      <td class="td-mono">0.383 log(PLN)</td>
+    </tr>
+    <tr>
+      <td class="td-mono">7</td>
+      <td>XGBoost regularized</td>
+      <td>extended with buildings features (28)</td>
+      <td>raw</td>
+      <td>0.140</td>
+      <td class="td-mono">±0.466</td>
+      <td class="td-mono">85 802 PLN</td>
+    </tr>
+    <tr>
+      <td class="td-mono">8</td>
+      <td>XGBoost regularized</td>
+      <td>extended with signals per user (27)</td>
+      <td>raw</td>
+      <td>0.180</td>
+      <td class="td-mono">±0.395</td>
+      <td class="td-mono">84 344 PLN</td>
+    </tr>
+  </table>
+
+  <div class="grid-2">
+    <div class="callout warn">
+      GridSearch z 92 160 fitami znalazł parametry zoptymalizowane pod konkretny podział CV — klasyczny hyperparameter overfitting. Przy n=50 wariancja oceny CV jest zbyt wysoka, by różnice rzędu ±0.02 miały znaczenie statystyczne. Finalny model: bazowy XGBoost z ręcznie dobraną regularyzacją.
+    </div>
+    <div class="callout">
+      Ridge, LASSO i SVR oceniane na log(revenue) — wynik nieporównywalny w PLN. Przy n=50 i 26 featurach modele liniowe są zbyt ograniczone (nie łapią nieliniowych interakcji przestrzennych). XGBoost z silną regularyzacją (reg_alpha=1.0, reg_lambda=2.0) lepiej radzi sobie z tym typem danych.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Interpretacja R² = 0.175</h3>
+
+  <div class="callout">
+    <strong>R²=0.175</strong> oznacza że zastosowany zestaw cech lokalizacyjnych
+    wyjaśnia ~17% wariancji revenue. Trudno ocenić jaka część pozostałej wariancji
+    wynika z czynników operacyjnych (zarządzanie, asortyment, lojalność klientów),
+    a jaka z ograniczeń modelu lub niepełnego zestawu cech.
+    Poprawa RMSE: 83.6k vs 107k baseline = 21% redukcja błędu predykcji.
+  </div>
+
+  <div class="divider"></div>
+  <h3>Feature importance — zbieżność dwóch metod</h3>
+
+  <div class="img-container">
+    <img src="data/outputs/model_feature_importance.png" alt="Feature importance">
+    <div class="img-caption">XGBoost feature importance (gain-based) — top 3 spójne z korelacją Pearsona</div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Top 5 feature importance</h3>
+      <div class="feature-bar-container">
+        <div class="feature-bar-label"><span>nearest_poi_pharmacy_m</span><span>0.163</span></div>
+        <div class="feature-bar-track"><div class="feature-bar-fill" style="width:100%"></div></div>
+      </div>
+      <div class="feature-bar-container" style="margin-top:0.5rem;">
+        <div class="feature-bar-label"><span>unique_users_1500m</span><span>0.140</span></div>
+        <div class="feature-bar-track"><div class="feature-bar-fill" style="width:86%"></div></div>
+      </div>
+      <div class="feature-bar-container" style="margin-top:0.5rem;">
+        <div class="feature-bar-label"><span>population_1500m</span><span>0.140</span></div>
+        <div class="feature-bar-track"><div class="feature-bar-fill" style="width:86%"></div></div>
+      </div>
+      <div class="feature-bar-container" style="margin-top:0.5rem;">
+        <div class="feature-bar-label"><span>nearest_poi_park_m</span><span>0.064</span></div>
+        <div class="feature-bar-track"><div class="feature-bar-fill" style="width:39%"></div></div>
+      </div>
+      <div class="feature-bar-container" style="margin-top:0.5rem;">
+        <div class="feature-bar-label"><span>poi_bus_stop_count_1500m</span><span>0.057</span></div>
+        <div class="feature-bar-track"><div class="feature-bar-fill" style="width:35%"></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Zbieżność z korelacją Pearsona</h3>
+      <p style="font-size:13px; margin-bottom:0.75rem;">Top 3 z feature importance pokrywają się z najsilniejszymi korelacjami z targetem — co daje <strong>dyrektywną pewność</strong> wyników mimo niskiego R².</p>
+      <table style="font-size:12px;">
+        <tr><th>Feature</th><th>r Pearson</th><th>Importance</th></tr>
+        <tr><td>nearest_poi_pharmacy_m</td><td class="td-mono td-bad">−0.507</td><td class="td-mono">#1</td></tr>
+        <tr><td>unique_users_1500m</td><td class="td-mono td-good">+0.575</td><td class="td-mono">#2</td></tr>
+        <tr><td>population_1500m</td><td class="td-mono td-good">+0.391</td><td class="td-mono">#3</td></tr>
+      </table>
+      <div class="callout" style="margin-top:0.75rem; font-size:12px;">
+        <strong>Uwaga:</strong> Feature importance zmienia się między sesjami z powodu stochastycznego subsamplingu XGBoost (subsample=0.8). Wyniki zapisano z <code>n_jobs=1</code> i <code>OMP_NUM_THREADS=1</code> dla pełnej reprodukowalności.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. WHITESPOT -->
+<section id="whitespot">
+  <div class="section-label">05 · Whitespot Analysis</div>
+  <h2>Identyfikacja nowych lokalizacji</h2>
+
+  <div class="grid-3">
+    <div class="stat-card">
+      <div class="stat-value">162</div>
+      <div class="stat-label">Komórek H3 (res. 6)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">131</div>
+      <div class="stat-label">Po filtracji</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">~1.2km</div>
+      <div class="stat-label">Średnica komórki</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.5rem;">
+    <div class="card accent-left">
+      <h3>Strategia filtrowania</h3>
+      <ul class="styled">
+        <li><strong>Bufor 1:</strong> min. 3000m od istniejącego sklepu klienta — eliminacja kanibalizacji własnej sieci (−25 lokalizacji)</li>
+        <li><strong>Bufor 2:</strong> 0 konkurentów w promieniu 1500m — wyłącznie rynki niezaspokojone (−6 lokalizacji)</li>
+      </ul>
+      <p style="font-size:13px; margin-top:0.75rem;">Score normalizowany w obrębie 131 przefiltrowanych komórek — Score 100 = najlepszy kandydat spośród przefiltrowanych, nie globalnie.</p>
+    </div>
+    <div class="card accent-left">
+      <h3>Dlaczego H3?</h3>
+      <p style="font-size:13px;">Hexagonalna siatka H3 (Uber) minimalizuje anizotropię (każdy punkt sąsiaduje z 6 jednakowymi sąsiadami). Rozdzielczość 6 (~1.2km diameter) — kompromis między gęstością siatki a czasem obliczenia footfall z Snowflake (~2 minuty batch SQL vs ~5 godzin przy res. 7 × 1128 komórek).</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Mapa whitespotów</h3>
+  <div class="map-container">
+    <iframe src="data/outputs/whitespot_map.html" title="Whitespot map"></iframe>
+  </div>
+  <p style="font-size:13px; color:var(--text-muted);">Obszary bez heatmapy = lokalizacje odfiltrowane (zbyt blisko sklepu klienta lub konkurencji). Czerwone gwiazdki = top 10 kandydatów, niebieskie gwiazdki = najgorsze 10 kandydatów, niebieskie kropki = istniejące sklepy klienta.</p>
+
+  <div class="divider"></div>
+  <h3>Top 3 lokalizacje</h3>
+
+  <!-- Location 1 -->
+  <div class="location-card rank-1">
+    <div class="location-rank">#1 · Score</div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="location-name">Dąbrowa Górnicza, Gołonóg</div>
+        <p style="font-size:13px; max-width:55ch;">Lokalizacja sąsiaduje z Hutą Katowice — jednym z największych zakładów hutniczych w Polsce. Charakter przemysłowy obszaru: populacja 2037 poniżej mediany siatki, unique users (426) umiarkowane. Model nagradza profil odległości POI — 2367m od apteki i 3827m od parku plasują ją na peryferiach miejskich, co w danych treningowych silnie korelowało z wysokim revenue. Zero konkurentów w promieniu 1500m (najbliższy 4098m). H3 centroid leży przy granicy zakładu — w praktyce sklep siting w sąsiedniej dzielnicy mieszkalnej Gołonóg. <strong>Wymaga weryfikacji terenowej.</strong></p>
+      </div>
+      <div class="location-score">100<span>/100</span></div>
+    </div>
+    <div class="location-grid">
+      <div class="location-stat"><div class="location-stat-val">2 037</div><div class="location-stat-key">Populacja 1500m</div></div>
+      <div class="location-stat"><div class="location-stat-val">426</div><div class="location-stat-key">Unique users</div></div>
+      <div class="location-stat"><div class="location-stat-val">2 367m</div><div class="location-stat-key">Nearest pharmacy</div></div>
+      <div class="location-stat"><div class="location-stat-val">3 827m</div><div class="location-stat-key">Nearest park</div></div>
+      <div class="location-stat"><div class="location-stat-val">0</div><div class="location-stat-key">Competitors</div></div>
+      <div class="location-stat"><div class="location-stat-val">35%</div><div class="location-stat-key">Residential ratio</div></div>
+    </div>
+  </div>
+
+  <!-- Location 2 -->
+  <div class="location-card rank-2">
+    <div class="location-rank">#2 · Score</div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="location-name">Bytom, Miechowice</div>
+        <p style="font-size:13px; max-width:55ch;">Dzielnica mieszkalna Bytomia w pobliżu Góry Drzezgowiec. Populacja 12 186 wyraźnie powyżej 75. percentyla siatki (3670) — jeden z lepiej zaludnionych kandydatów. Residential ratio 65% potwierdza mieszkalny charakter. Footfall umiarkowany (389 unique users). Zero konkurentów, najbliższy 3002m. <strong>Najbardziej zbalansowany kandydat</strong> — łączy zaludnienie, charakter mieszkalny i brak konkurencji.</p>
+      </div>
+      <div class="location-score">85.2<span>/100</span></div>
+    </div>
+    <div class="location-grid">
+      <div class="location-stat"><div class="location-stat-val">12 186</div><div class="location-stat-key">Populacja 1500m</div></div>
+      <div class="location-stat"><div class="location-stat-val">389</div><div class="location-stat-key">Unique users</div></div>
+      <div class="location-stat"><div class="location-stat-val">1 216m</div><div class="location-stat-key">Nearest pharmacy</div></div>
+      <div class="location-stat"><div class="location-stat-val">3 162m</div><div class="location-stat-key">Nearest park</div></div>
+      <div class="location-stat"><div class="location-stat-val">0</div><div class="location-stat-key">Competitors</div></div>
+      <div class="location-stat"><div class="location-stat-val">65%</div><div class="location-stat-key">Residential ratio</div></div>
+    </div>
+  </div>
+
+  <!-- Location 3 -->
+  <div class="location-card rank-3">
+    <div class="location-rank">#3 · Score</div>
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
+      <div>
+        <div class="location-name">Rybniki Kamień, Leszczyny/Czerwionka</div>
+        <p style="font-size:13px; max-width:55ch;">Okolice Parku Rekreacyjno-Wypoczynkowego Rybniki Kamień, pogranicze Leszczyn i Czerwionki-Leszczyn. Niska populacja (671) i bardzo niski footfall (80 unique users) sugerują, że model nagradza tu cechy peryferyjne bardziej niż rzeczywisty potencjał komercyjny. Zero konkurentów, najbliższy 3542m. <strong>Kandydat niższej pewności — silnie zalecana weryfikacja terenowa.</strong></p>
+      </div>
+      <div class="location-score">83.6<span>/100</span></div>
+    </div>
+    <div class="location-grid">
+      <div class="location-stat"><div class="location-stat-val">671</div><div class="location-stat-key">Populacja 1500m</div></div>
+      <div class="location-stat"><div class="location-stat-val">80</div><div class="location-stat-key">Unique users</div></div>
+      <div class="location-stat"><div class="location-stat-val">2 448m</div><div class="location-stat-key">Nearest pharmacy</div></div>
+      <div class="location-stat"><div class="location-stat-val">3 620m</div><div class="location-stat-key">Nearest park</div></div>
+      <div class="location-stat"><div class="location-stat-val">0</div><div class="location-stat-key">Competitors</div></div>
+      <div class="location-stat"><div class="location-stat-val">54%</div><div class="location-stat-key">Residential ratio</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>Analiza SHAP — wyjaśnienie decyzji modelu</h3>
+
+  <div class="callout" style="margin-bottom:1.5rem;">
+    SHAP waterfall plots rozkładają predykcję revenue na wkład poszczególnych cech względem średniej treningowej (E[f(X)] ≈ 219k PLN). Dominujące featury we wszystkich trzech lokalizacjach: <strong>nearest_poi_pharmacy_m</strong> i <strong>nearest_poi_park_m</strong> — łącznie +72k do +94k PLN powyżej średniej.
+  </div>
+
+  <div class="grid-3">
+    <div class="img-container">
+      <img src="data/outputs/shap_dąbrowa_górnicza_gołonóg.png" alt="SHAP Dąbrowa" onerror="this.src='data/outputs/shap_dąbrowa_górnicza_gołonóg.png'">
+      <div class="img-caption">SHAP — Dąbrowa Górnicza (f(x) = 326 898 PLN)</div>
+    </div>
+    <div class="img-container">
+      <img src="data/outputs/shap_bytom_miechowice.png" alt="SHAP Bytom" onerror="this.src='data/outputs/shap_bytom_miechowice.png'">
+      <div class="img-caption">SHAP — Bytom Miechowice (f(x) = 302 534 PLN)</div>
+    </div>
+    <div class="img-container">
+      <img src="data/outputs/shap_rybnik_kamień_recreational_area.png" alt="SHAP Rybnik" onerror="this.src='data/outputs/shap_rybnik_kamień_recreational_area.png'">
+      <div class="img-caption">SHAP — Rybnik Kamień (f(x) = 299 758 PLN)</div>
+    </div>
+  </div>
+
+  <div class="callout warn" style="margin-top:1rem;">
+    <strong>Ograniczenie SHAP:</strong> Relacja między nearest_poi_pharmacy_m a revenue jest <strong>nieliniowa i kontekstowa</strong> — SHAP dla tej cechy wynosi +42k (Bytom, 1216m), +48k (Dąbrowa, 2367m) i +47k (Rybniki, 2448m). Brak prostej reguły "bliżej/dalej = lepiej". Obie cechy POI wykazują ujemną korelację Pearsona z revenue (pharmacy: r=−0.507, park: r=−0.391) — zbieżność z SHAP nie jest prosta, co wskazuje na warunkowy charakter wpływu w modelach drzewowych.
+  </div>
+
+  <div class="divider"></div>
+  <h3>Porównanie: top 3 kandydaci vs top 3 istniejące sklepy (wg revenue)</h3>
+
+  <table>
+    <tr>
+      <th>Feature</th>
+      <th>Top 3 existing (mean)</th>
+      <th>Top 3 candidates (mean)</th>
+    </tr>
+    <tr><td>nearest_poi_pharmacy_m</td><td class="td-mono">1 531m</td><td class="td-mono">2 010m</td></tr>
+    <tr><td>unique_users_1500m</td><td class="td-mono td-good">2 278</td><td class="td-mono td-warn">298</td></tr>
+    <tr><td>population_1500m</td><td class="td-mono td-good">31 330</td><td class="td-mono td-warn">4 965</td></tr>
+    <tr><td>nearest_poi_park_m</td><td class="td-mono">4 045m</td><td class="td-mono">3 536m</td></tr>
+    <tr><td>residential_ratio_1500m</td><td class="td-mono">0.49</td><td class="td-mono">0.51</td></tr>
+    <tr><td>competitor_count_1500m</td><td class="td-mono td-bad">1.0</td><td class="td-mono td-good">0.0</td></tr>
+    <tr><td>nearest_competitor_m</td><td class="td-mono">1 647m</td><td class="td-mono td-good">3 548m</td></tr>
+  </table>
+
+  <div class="callout">
+    Najlepiej zarabiające istniejące sklepy operują w obszarach z bardzo wysokim footfall (2278 unique users) i dużą populacją (31k) — ale też w bardziej nasyconym środowisku (1 konkurent, 1647m). Rekomendowane lokalizacje reprezentują <strong>odmienną hipotezę ekspansji</strong>: niższy initial footfall, ale całkowicie niezaspokojony rynek. Uwaga: uśrednianie 3 bardzo różnych profili (przemysłowy, mieszkalny, wiejski) może maskować istotne różnice — wyniki traktować jako kierunkowe.
+  </div>
+</section>
+
+<!-- 6. WNIOSKI -->
+<section id="wnioski">
+  <div class="section-label">06 · Wnioski</div>
+  <h2>Rekomendacje i dalsze kroki</h2>
+
+  <div class="callout good" style="margin-bottom:1.5rem;">
+    <strong>Główna rekomendacja: Bytom, Miechowice</strong> — najbardziej zbalansowany kandydat spośród przefiltrowanych lokalizacji. Solidna populacja (12 186, powyżej 75. percentyla), wyraźny charakter mieszkalny (65%), zero konkurencji. W odróżnieniu od Dąbrowy Górniczej nie budzi wątpliwości co do rzeczywistej gęstości zaludnienia i dostępności lokalu.
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3>Ograniczenia modelu</h3>
+      <ul class="styled">
+        <li>R²=0.175 — model wyjaśnia ~17% wariancji revenue. Pozostałe ~83% to czynniki operacyjne poza zakresem analizy lokalizacyjnej.</li>
+        <li>n=50 — wysokie std (±0.453) odzwierciedla niestabilność CV przy małej próbce. GridSearch nie dał stabilnej poprawy.</li>
+        <li>Dane mobilne z lipca 2020 — jeden miesiąc, jedno lato. Sezonowość nie jest uchwycona.</li>
+        <li>nearest_poi_park_m i nearest_poi_pharmacy_m dominują SHAP mimo nieliniowej relacji z revenue — model nagradza cechy peryferyjne, co może nie odpowiadać logice biznesowej dla wszystkich kandydatów.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Dalsze kroki</h3>
+      <ul class="styled">
+        <li><strong>Weryfikacja terenowa</strong> top 3 lokalizacji — szczególnie Dąbrowa (charakter przemysłowy) i Rybniki Kamień (niski footfall).</li>
+        <li><strong>Więcej miesięcy danych Snowflake</strong> — lipiec 2020 to jeden punkt w czasie. Dane z pełnego roku pozwoliłyby uchwycić sezonowość i trendy.</li>
+        <li><strong>Dodatkowe featury</strong> — dane o nowych inwestycjach mieszkaniowych, plany zagospodarowania przestrzennego, dane o transporcie publicznym.</li>
+        <li><strong>Większy dataset treningowy</strong> — n=50 to fundamentalne ograniczenie. Każda nowo otwarta lokalizacja powinna trafiać do datasetu treningowego.</li>
+        <li><strong>Modele hierarchiczne</strong> — uwzględnienie efektów na poziomie gminy/miasta jako random effects.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div style="text-align:center; padding:3rem 0 1rem;">
+    <div class="section-label" style="text-align:center;">Jan Matusiak · dataplace.ai · 2026</div>
+    <p style="text-align:center; font-size:13px;">Notebooks: 01_eda · 02_feature_engineering · 03_model_and_interpretation · 04_whitespot_analysis</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
