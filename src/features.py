@@ -122,15 +122,18 @@ def compute_buildings_features(gdf_locations, gdf_buildings, radius=1500):
                          .merge(residential_df, on='location_id', how='left'))
 
     building_features[f'building_count_{radius}m'] = (
-        building_features[f'building_count_{radius}m'].fillna(0).astype(int))
+        building_features[f'building_count_{radius}m'].fillna(0))
     building_features[f'residential_count_{radius}m'] = (
-        building_features[f'residential_count_{radius}m'].fillna(0).astype(int))
+        building_features[f'residential_count_{radius}m'].fillna(0))
 
     # we compute ratio from to calculated counts
     building_features[f'residential_ratio_{radius}m'] = (
             building_features[f'residential_count_{radius}m'] /
             building_features[f'building_count_{radius}m'].replace(0, float('nan'))
-    )
+    ).fillna(0)
+
+    building_features[f'building_count_{radius}m'] = building_features[f'building_count_{radius}m'].astype(int)
+    building_features[f'residential_count_{radius}m'] = building_features[f'residential_count_{radius}m'].astype(int)
 
     cols = ['location_id', f'building_count_{radius}m', f'residential_ratio_{radius}m']
     return building_features[cols]
@@ -154,38 +157,50 @@ def compute_population_features(gdf_locations, gdf_population, radius=1500):
 
 
 def compute_footfall_features(gdf_locations, base_filter, radius=1500):
-    values = ",\n        ".join([
-        f"('{row['location_id']}', {row['geometry'].y}, {row['geometry'].x})"
-        for _, row in gdf_locations.iterrows()
-    ])
+    BATCH_SIZE = 30
+    all_results = []
 
-    df = _query(f"""
-        WITH locations AS (
-            SELECT column1 AS location_id,
-                   column2 AS lat,
-                   column3 AS lng
-            FROM VALUES
-                {values}
-        )
-        SELECT
-            l.location_id,
-            COUNT(*) AS signals,
-            COUNT(DISTINCT t.proxi_user_id) AS unique_users
-        FROM locations l
-        JOIN RECRUITMENT_TRACES t
-            ON ST_DWITHIN(
-                TO_GEOGRAPHY(ST_MAKEPOINT(
-                    CAST(t.longitude AS FLOAT),
-                    CAST(t.latitude AS FLOAT)
-                )),
-                TO_GEOGRAPHY(ST_MAKEPOINT(l.lng, l.lat)),
-                {radius}
+    for i in range(0, len(gdf_locations), BATCH_SIZE):
+        batch = gdf_locations.iloc[i:i+BATCH_SIZE]
+
+        values = ",\n        ".join([
+            f"('{row['location_id']}', {row['geometry'].y}, {row['geometry'].x})"
+            for _, row in batch.iterrows()
+        ])
+
+        df = _query(f"""
+            WITH locations AS (
+                SELECT column1 AS location_id,
+                       column2 AS lat,
+                       column3 AS lng
+                FROM VALUES {values}
             )
-        WHERE {base_filter}
-        GROUP BY l.location_id
-    """, fetch='pandas')
+            SELECT
+                l.location_id,
+                COUNT(*) AS signals,
+                COUNT(DISTINCT t.proxi_user_id) AS unique_users
+            FROM locations l
+            JOIN RECRUITMENT_TRACES t
+                ON ST_DWITHIN(
+                    TO_GEOGRAPHY(ST_MAKEPOINT(
+                        CAST(t.longitude AS FLOAT),
+                        CAST(t.latitude AS FLOAT)
+                    )),
+                    TO_GEOGRAPHY(ST_MAKEPOINT(l.lng, l.lat)),
+                    {radius}
+                )
+            WHERE {base_filter}
+            GROUP BY l.location_id
+        """, fetch='pandas')
 
-    # Rename columns
-    df.columns = ['location_id', f'signals_{radius}m', f'unique_users_{radius}m']
+        df.columns = ['location_id', f'signals_{radius}m', f'unique_users_{radius}m']
+        all_results.append(df)
+        print(f"Batch {i//BATCH_SIZE + 1} done")
+
+    df = pd.concat(all_results, ignore_index=True)
+
+    df = (gdf_locations[['location_id']]
+        .merge(df, on='location_id', how='left')
+        .fillna(0))
 
     return df
