@@ -45,7 +45,7 @@ Eksploracja wszystkich trzech źródeł danych: pliki CSV, AWS S3 i Snowflake.
 Artefakty: `data/outputs/eda_map.html`, wizualizacje w .png
 
 ### `02_feature_engineering.ipynb`
-Obliczenie 26 cech przestrzennych dla każdej z 50 lokalizacji w promieniu 1500m.
+Obliczenie 28 cech przestrzennych dla każdej z 50 lokalizacji w promieniu 1500m.
 
 - Uzasadnienie wyboru promienia 1500m
 - `compute_competitor_features` — liczba i odległość do konkurencji
@@ -74,7 +74,7 @@ Artefakty: `data/processed/model.joblib`, `feature_importance.csv`, `model_resul
 Identyfikacja kandydatów na nowe lokalizacje w obszarze analizy.
 
 - Generowanie siatki H3 (rozdzielczość 6, 162 komórki, ~1.2km średnica)
-- Obliczenie 26 cech dla każdej komórki 
+- Obliczenie 25 cech dla każdej komórki 
 - Filtrowanie: min. 3000m od istniejącego sklepu klienta + 0 konkurentów w promieniu 1500m → 131 kandydatów
 - Predykcja revenue i normalizacja do score 0–100
 - Wizualizacja folium: heatmapa scoringu, top 10 kandydatów, istniejące sklepy
@@ -109,14 +109,14 @@ Wszystkie obliczenia przestrzenne w promieniu wykonywane po reprojekcji do EPSG:
 ## Czas pracy
 
 | Etap | Notebook / zadanie | Czas (h) |
-|---|---|---|
-| EDA | `01_exploratory_data_analysis.ipynb` | |
-| Feature engineering | `02_feature_engineering.ipynb` | |
-| Modelowanie | `03_model_and_interpretation.ipynb` | |
-| Whitespot analysis | `04_whitespot_analysis.ipynb` | |
-| Prezentacja | `prezentacja.html` | |
-| Konfiguracja, setup, inne | — | |
-| **Łącznie** | | |
+|---|---|----------|
+| EDA | `01_exploratory_data_analysis.ipynb` | 6        |
+| Feature engineering | `02_feature_engineering.ipynb` | 3        |
+| Modelowanie | `03_model_and_interpretation.ipynb` | 4        |
+| Whitespot analysis | `04_whitespot_analysis.ipynb` | 3        |
+| Prezentacja | `prezentacja.html` | 2        |
+| Konfiguracja, setup, inne | — | 1        |
+| **Łącznie** | | 19       |
 
 ---
 
@@ -126,4 +126,9 @@ Wszystkie obliczenia przestrzenne w promieniu wykonywane po reprojekcji do EPSG:
 pip install -r requirements.txt
 ```
 
-Dostępy do Snowflake i AWS S3 wymagane — dane konfiguracyjne w `.env` (nie wersjonowany).
+Dostępy do Snowflake i AWS S3 wymagane — dane konfiguracyjne w `.env` (nie wersjonowany).  
+
+Dane S3 (buildings, population) oraz przetworzone GDFs (parquet) 
+nie są wersjonowane — pliki są zbyt duże. Notebook 01 pobiera 
+dane bezpośrednio z AWS S3 przy uruchomieniu (wymaga dostępów). 
+Notebook 02 przelicza features od zera na podstawie pobranych danych.

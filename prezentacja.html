@@ -258,16 +258,6 @@
   }
 
   /* BADGE */
-  .badge {
-    display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.2em 0.6em;
-    border-radius: 3px;
-    margin-right: 0.3rem;
-  }
 
   .badge-blue { background: rgba(79,156,249,0.15); color: var(--accent); }
   .badge-green { background: rgba(79,217,160,0.15); color: var(--accent3); }
@@ -481,9 +471,9 @@
   <p class="hero-sub">Identyfikacja optymalnych lokalizacji pod nowe sklepy spożywcze na obszarze Śląsk-Kraków w oparciu o dane mobilne, demograficzne i przestrzenne.</p>
   <div class="hero-meta">
     <div class="hero-meta-item"><strong>50</strong> istniejących lokalizacji</div>
+    <div class="hero-meta-item"><strong>3</strong> źródła danych </div>
+    <div class="hero-meta-item"><strong>8</strong> zbiorów danych </div>
     <div class="hero-meta-item"><strong>11.6M</strong> sygnałów GPS (Snowflake)</div>
-    <div class="hero-meta-item"><strong>955k</strong> budynków (S3)</div>
-    <div class="hero-meta-item"><strong>162</strong> kandydatów H3 (res. 6)</div>
   </div>
 </section>
 
@@ -492,7 +482,7 @@
   <div class="section-label">01 · Problem i dane</div>
   <h2>Cel i źródła danych</h2>
 
-  <p>Celem analizy jest wskazanie lokalizacji o najwyższym potencjale przychodowym dla nowych sklepów spożywczych klienta — z uwzględnieniem istniejącej sieci, konkurencji i danych mobilnych. Wynik: ranking lokalizacji kandydatów z uzasadnieniem.</p>
+  <p>Celem analizy jest wskazanie lokalizacji o najwyższym potencjale przychodowym dla nowych sklepów spożywczych klienta — z uwzględnieniem istniejącej sieci, konkurencji, danych mobilnych, przestrzennych i o populacji. <strong>Wynik</strong>: ranking top 3 lokalizacji-kandydatów z uzasadnieniem.</p>
 
   <div class="grid-2" style="margin-top:2rem;">
     <div class="card accent-left">
@@ -502,7 +492,7 @@
         <li><code>ds_competitors</code> — 98 lokalizacji, 9 sieci</li>
         <li><code>ds_poi</code> — 335 punktów, 8 kategorii</li>
         <li><code>ds_analysis_area</code> — obszar ekspansji</li>
-        <li><code>ds_districts</code> — 15 gmin administracyjnych</li>
+        <li><code>ds_districts</code> — 15 dzielnic/gmin </li>
       </ul>
     </div>
     <div class="card accent-left">
@@ -511,13 +501,12 @@
         <li><strong>S3 buildings</strong> — 955 612 budynków z powierzchnią i typem</li>
         <li><strong>S3 population</strong> — 450 140 rekordów adresowych z liczebnością</li>
         <li><strong>Snowflake RECRUITMENT_TRACES</strong> — 435M sygnałów GPS (cała Polska)</li>
-        <li>Filtr: bbox + lipiec 2020 → 11.6M sygnałów, ~85k unikalnych userów</li>
       </ul>
     </div>
   </div>
 
   <div class="callout">
-    <strong>Decyzja projektowa:</strong> Snowflake zawiera dane z całej Polski; stosujemy filtr bbox + lipiec 2020 we wszystkich zapytaniach SQL.
+    <strong>Decyzja projektowa:</strong> Snowflake zawiera dane z całej Polski; stosujemy filtr bbox + lipiec 2020 we wszystkich zapytaniach SQL → uzyskujemy 11.6M sygnałów i ~85k unikalnych użytkowników.
   </div>
 </section>
 
@@ -552,7 +541,9 @@
   </div>
 
   <div class="callout warn">
-    <strong>3 outliery IQR:</strong> LOC_007 (527k), LOC_019 (624k), LOC_043 (574k) — wszystkie zlokalizowane w centrum Katowic (Śródmieście, Wełnowiec). Zachowane w datasecie — realistyczne wartości dla lokalizacji w dużym mieście. Usunięcie 3 z 50 obserwacji (6%) byłoby kosztowne statystycznie.
+    <strong>3 outliery IQR:</strong> LOC_007 (527k), LOC_019 (624k), LOC_043 (574k) — wszystkie zlokalizowane w centrum Katowic (Śródmieście, Wełnowiec). Zostały zachowane w datasecie, gdyż stanowią realistyczne wartości dla lokalizacji w dużym mieście.
+    Jest to decyzja kompromisowa — ich usunięcie ograniczyłoby model do przewidywania lokalizacji przeciętnych, podczas gdy celem analizy jest identyfikacja lokalizacji
+     o wysokim potencjale. Potencjalny wpływ na model: trzy punkty z centrum Katowic mogły skrzywić wagi cech typowych dla centrum dużego miasta.
   </div>
 
   <div class="divider"></div>
@@ -582,11 +573,11 @@
   </div>
 
   <div class="divider"></div>
-    <h3>Mapa obszaru analizy</h3>
+    <h3>Interaktywna mapa obszaru analizy</h3>
     <div class="map-container">
       <iframe src="data/outputs/eda_map.html" title="Mapa EDA"></iframe>
     </div>
-    <p style="font-size:13px; color:var(--text-muted);">Niebieskie markery — sklepy klienta, czerwone — konkurencja, zielone — POI. Czarna linia — granica analysis_area, szare linie — granice dystryktów.</p>
+    <p style="font-size:13px; color:var(--text-muted);">Niebieskie markery — sklepy klienta, czerwone — konkurencja, zielone — POI. Gruba czarna linia — granica analysis_area, cienkie czarne linie — granice dystryktów.</p>
 
   <div class="divider"></div>
   <h3>Obszary analizy — kluczowa decyzja</h3>
@@ -604,7 +595,7 @@
       <h3>Snowflake — wzorce mobilności</h3>
       <div class="img-container" style="margin:0.5rem 0;">
         <img src="data/outputs/eda_snowflake_hours.png" alt="Godziny">
-        <div class="img-caption">Szczyt o 6–7 rano (dojazdy do pracy), plateau do 17:00</div>
+        <div class="img-caption">Szczyt o 6–7 rano (dojazdy do pracy), wysoko do 17:00</div>
       </div>
       <div class="img-container" style="margin:0.5rem 0;">
         <img src="data/outputs/eda_snowflake_days.png" alt="Dni tygodnia">
@@ -623,7 +614,7 @@
   <div class="section-label">03 · Feature Engineering</div>
   <h2>Budowa zestawu cech</h2>
 
-  <p>Dla każdej z 50 lokalizacji obliczono 26 cech przestrzennych w promieniu <strong>1500m</strong>. Funkcje zaimplementowane w <code>src/features.py</code> i przeliczone w notebook <code>02_feature_engineering.ipynb</code>.</p>
+  <p>Dla każdej z 50 lokalizacji obliczono 25 cech przestrzennych w promieniu <strong>1500m</strong>. Funkcje zaimplementowane w <code>src/features.py</code> i przeliczone w notebook <code>02_feature_engineering.ipynb</code>.</p>
 
   <div class="grid-2">
     <div class="card">
@@ -633,12 +624,12 @@
           <li>Przy 500m większość lokalizacji miała zerowe wartości dla rzadkich kategorii POI (park, szpital, galeria) — near-zero variance uniemożliwiający modelowanie.</li>
           <li>1500m to naturalny zasięg oddziaływania sklepu spożywczego — odpowiada ~15–20 minutom pieszego spaceru.</li>
           <li>Większy promień (np. 2500m) zacierałby lokalne różnice — sklepy oddalone o 1km miałyby niemal identyczne cechy, eliminując sygnał dla modelu.</li>
-          <li>Multi-radius features rozważono i odrzucono — przy 26 featurach i n=50 rozszerzenie przestrzeni cech zwiększyłoby ryzyko overfittingu.</li>
+          <li>Multi-radius features rozważono i odrzucono — przy 25 cechach i n=50 rozszerzenie przestrzeni cech zwiększyłoby ryzyko overfittingu.</li>
         </ul>
       </p>
     </div>
     <div class="card">
-      <h3>Grupy cech (26 łącznie)</h3>
+      <h3>Grupy cech (25 łącznie)</h3>
       <ul class="styled">
         <li><strong>Footfall (Snowflake):</strong> signals_1500m, unique_users_1500m</li>
         <li><strong>Konkurencja:</strong> competitor_count, nearest_competitor_m</li>
@@ -654,14 +645,34 @@
   <div class="grid-2">
     <div class="card accent-orange">
       <h3>Iteracja 2 — building features</h3>
-      <p style="font-size:13px;">Próba dodania cech z poziomu sklepu: <code>store_building_area</code> i <code>is_retail_building</code> przez spatial join z gdf_buildings. Korelacja z targetem |r| &lt; 0.1 — featury nie wniosły wartości i zostały usunięte.</p>
+      <p style="font-size:13px;">Próba dodania cech z poziomu sklepu: <code>store_building_area</code> i <code>is_retail_building</code> przez spatial join z gdf_buildings. Korelacja z targetem nieznaczna — cechy nie wniosły wartości i zostały usunięte.</p>
     </div>
     <div class="card accent-orange">
       <h3>Iteracja 3 — signals_per_user</h3>
-      <p style="font-size:13px;"><code>signals_per_user = signals / unique_users</code> — wskaźnik lojalności. Marginalnie poprawił R² (0.180 vs 0.175), ale różnica mieści się w granicach błędu CV przy n=50 — przy odchyleniu standardowym ±0.45
-        poprawa o 0.005 jest statystycznie nierozróżnialna od szumu. Nie sprawdzono wariantu z <code>signals_per_user</code> zastępującym <code>signals</code> i <code>unique_users</code> — potencjalnie interesujące, jako że feature łączy informację o gęstości i różnorodności ruchu w jednej mierze. Przy ograniczonym czasie i n=50 zdecydowano się zachować bazowy zestaw cech bez dalszych iteracji.</p>
+      <p style="font-size:13px;"><code>signals_per_user = signals / unique_users</code> — wskaźnik lojalności. Marginalnie poprawił R² (0.180 vs 0.175), ale różnica mieści się w granicach błędu CV przy n=50 — przy odchyleniu standardowym ±0.45 poprawa o 0.005 jest statystycznie nierozróżnialna od szumu. Nie sprawdzono wariantu z <code>signals_per_user</code> zastępującym <code>signals</code> i <code>unique_users</code> — potencjalnie interesujące, jako że feature łączy informację o gęstości i różnorodności ruchu w jednej mierze. Przy ograniczonym czasie i n=50 zdecydowano się zachować bazowy zestaw cech bez dalszych iteracji.</p>
     </div>
   </div>
+
+  <div class="divider"></div>
+    <h3>Ograniczenia zestawu cech</h3>
+    <div class="card accent-orange">
+      <ul class="styled">
+        <li><strong>Typ konkurenta:</strong> <code>competitor_count</code> i <code>nearest_competitor_m</code> traktują wszystkich konkurentów równorzędnie. Żabka (61% rynku) pełni inną funkcję niż Lidl czy Dino — rozróżnienie typów (convenience vs supermarket) mogłoby zwiększyć precyzję featurów konkurencji.</li>
+        <li><strong>Brak efektów dystryktowych:</strong> dystrykt mógłby działać jako cecha kategorialna — np. Kraków vs Katowice mają różne struktury rynku i gęstości zabudowy. Przy n=50 i 15 dystryktach encoding dałby kolejne 14 zmiennych dummy, podwajając przestrzeń cech i zwiększając ryzyko przeuczenia.</li>
+        <li><strong>Populacja vs gospodarstwa domowe:</strong> użyto łącznej liczby osób (<code>total</code>). Liczba gospodarstw domowych mogłaby lepiej modelować liczbę niezależnych decyzji zakupowych — zakupy często robi jeden członek gospodarstwa.</li>
+        <li><strong>Powierzchnia budynku sklepu:</strong> rozkład <code>area</code> jest silnie prawostronnie skośny — jako cecha do modelu liniowego wymagałaby log-transformacji. Przetestowano bez transformacji: korelacja z targetem nieznaczna, model nie poprawił wyników. Nie sprawdzono wariantu z log-transformem — potencjalnie warte eksploracji.</li>
+        <li><strong>Przestrzeń możliwych cech jest nieograniczona:</strong> feature engineering oparty na danych przestrzennych otwiera ogromną liczbę możliwości — różne promienie, kombinacje cech, transformacje, interakcje między kategoriami POI, cechy oparte na sąsiednich komórkach H3, wskaźniki dostępności komunikacyjnej. Przy n=50 kluczowym ograniczeniem nie jest brak pomysłów, lecz ryzyko przeuczenia przy rozszerzaniu przestrzeni cech.</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+    <h3>Uzasadnienia podjętych decyzji</h3>
+    <div class="card accent-green">
+      <ul class="styled">
+        <li><strong>Równe wagi kategorii POI:</strong> zamiast arbitralnie ważyć kategorie POI (restauracji jest 18%, aptek 12%, galerii 4.5%), pozwolono modelowi samodzielnie ustalić ich znaczenie przez feature importance. Dane same wskazały wagi — pharmacy i park dominują, mall i restaurant osiągają blisko zera.</li>
+        <li><strong>Pominięcie <code>funszczegolowabudynku_desc</code>:</strong> kolumna przechowuje dane jako tablice JSON — każdy budynek może mieć kilka szczegółowych funkcji jednocześnie. Parsowanie jest technicznie możliwe, ale czasochłonne i wykraczało poza zakres analizy. <code>funogolnabudynku_desc</code> (ogólna kategoria) okazała się wystarczająca do obliczenia <code>residential_ratio</code>.</li>
+      </ul>
+    </div>
 
   <div class="callout">
     Wszystkie obliczenia w promieniu wykonywane po reprojekcji do EPSG:2180 (Polska, metryczna). Footfall z Snowflake obliczany przez ST_DWITHIN z TO_GEOGRAPHY — prawidłowe odległości geodezyjne bez reprojekcji po stronie SQL.
@@ -682,7 +693,7 @@
   <div class="grid-2">
     <div class="img-container">
       <img src="data/outputs/model_correlation_target.png" alt="Korelacje z targetem">
-      <div class="img-caption">Pearson r z monthly_revenue — unique_users, signals i population najsilniej dodatnio, POIs ujemnie (im bliżej, tym wyższy revenue)</div>
+      <div class="img-caption">Pearson r z monthly_revenue </div>
     </div>
     <div class="img-container">
       <img src="data/outputs/model_correlation_heatmap.png" alt="Heatmapa korelacji">
@@ -692,7 +703,8 @@
 
   <div class="divider"></div>
   <h3>Testowane modele i wybór finalny</h3>
-  <p>Testowano 8 konfiguracji modeli. Wszystkie oceniane przez RepeatedKFold (5×10), co daje 50 ocen bardziej wiarygodną estymację przy n=50.</p>
+  <p>Testowano 8 konfiguracji modeli. Wszystkie oceniane przez RepeatedKFold (5×10), co daje 50 ocen - bardziej wiarygodną estymację przy n=50.
+  Wyższy R² oznacza lepsze dopasowanie modelu do danych (max=1.0).</p>
 
   <table>
     <tr>
@@ -710,7 +722,7 @@
     <tr style="background: rgba(79,156,249,0.06);">
       <td class="td-mono">1</td>
       <td><strong>XGBoost regularized ← FINAL</strong></td>
-      <td>full (26)</td>
+      <td>full (25)</td>
       <td>raw</td>
       <td class="td-best">0.175</td>
       <td class="td-mono">±0.453</td>
@@ -719,7 +731,7 @@
     <tr>
       <td class="td-mono">2</td>
       <td>XGBoost tuned (GridSearch)</td>
-      <td>full (26)</td>
+      <td>full (25)</td>
       <td>raw</td>
       <td class="td-warn">0.152</td>
       <td class="td-mono">±0.465</td>
@@ -737,7 +749,7 @@
     <tr>
       <td class="td-mono">4</td>
       <td>Ridge (tuned)</td>
-      <td>full (26)</td>
+      <td>full (25)</td>
       <td>log</td>
       <td class="td-mono">0.033</td>
       <td class="td-mono">±0.271</td>
@@ -746,7 +758,7 @@
     <tr>
       <td class="td-mono">5</td>
       <td>LASSO (tuned)</td>
-      <td>full (26)</td>
+      <td>full (25)</td>
       <td>log</td>
       <td class="td-bad">−0.141</td>
       <td class="td-mono">±0.420</td>
@@ -755,7 +767,7 @@
     <tr>
       <td class="td-mono">6</td>
       <td>SVR (rbf, tuned)</td>
-      <td>full (26)</td>
+      <td>full (25)</td>
       <td>log</td>
       <td class="td-bad">−0.053</td>
       <td class="td-mono">±0.184</td>
@@ -764,7 +776,7 @@
     <tr>
       <td class="td-mono">7</td>
       <td>XGBoost regularized</td>
-      <td>extended with buildings features (28)</td>
+      <td>extended with buildings features (27)</td>
       <td>raw</td>
       <td>0.140</td>
       <td class="td-mono">±0.466</td>
@@ -773,20 +785,26 @@
     <tr>
       <td class="td-mono">8</td>
       <td>XGBoost regularized</td>
-      <td>extended with signals per user (27)</td>
+      <td>extended with signals per user (26)</td>
       <td>raw</td>
-      <td>0.180</td>
+      <td class="td-warn">0.180</td>
       <td class="td-mono">±0.395</td>
       <td class="td-mono">84 344 PLN</td>
     </tr>
   </table>
+
+    <div class="callout" style="margin-bottom:1.5rem;">
+        <strong>Dlaczego nie użyto modelu z signals_per_user w analizie whitespotów?</strong><br><br>
+        <code>signals_per_user</code> marginalnie poprawił CV R² (0.180 vs 0.175), ale różnica nie jest
+        istotna statystycznie przy n=50 — mieści się w granicach szumu oceny CV. Ten model został wytrenowany po wstępnej analizie whitespotów, do której użyto modelu nr 1 z 25 cechami - przy ograniczonym czasie i ze względu na niewielką różnicę w ocenie zdecydowano się więc zachować ten bazowy zestaw cech.
+    </div>
 
   <div class="grid-2">
     <div class="callout warn">
       GridSearch z 92 160 fitami znalazł parametry zoptymalizowane pod konkretny podział CV — klasyczny hyperparameter overfitting. Przy n=50 wariancja oceny CV jest zbyt wysoka, by różnice rzędu ±0.02 miały znaczenie statystyczne. Finalny model: bazowy XGBoost z ręcznie dobraną regularyzacją.
     </div>
     <div class="callout">
-      Ridge, LASSO i SVR oceniane na log(revenue) — wynik nieporównywalny w PLN. Przy n=50 i 26 featurach modele liniowe są zbyt ograniczone (nie łapią nieliniowych interakcji przestrzennych). XGBoost z silną regularyzacją (reg_alpha=1.0, reg_lambda=2.0) lepiej radzi sobie z tym typem danych.
+      Ridge, LASSO i SVR są oceniane na log(revenue) — wynik nieporównywalny do PLN. Przy n=50 i 25 cechach modele liniowe są zbyt ograniczone (nie łapią nieliniowych interakcji przestrzennych). XGBoost z silną regularyzacją (reg_alpha=1.0, reg_lambda=2.0) lepiej radzi sobie z tym typem danych.
     </div>
   </div>
 
@@ -795,14 +813,14 @@
 
   <div class="callout">
     <strong>R²=0.175</strong> oznacza że zastosowany zestaw cech lokalizacyjnych
-    wyjaśnia ~17% wariancji revenue. Trudno ocenić jaka część pozostałej wariancji
+    wyjaśnia ~17% wariancji revenue. <strong>Innymi słowy: wiedząc tylko gdzie sklep się znajduje,
+    możemy wyjaśnić ~17% różnic w przychodach między sklepami.</strong> Trudno ocenić jaka część pozostałej wariancji
     wynika z czynników operacyjnych (zarządzanie, asortyment, lojalność klientów),
     a jaka z ograniczeń modelu lub niepełnego zestawu cech.
-    Poprawa RMSE: 83.6k vs 107k baseline = 21% redukcja błędu predykcji.
   </div>
 
   <div class="divider"></div>
-  <h3>Feature importance — zbieżność dwóch metod</h3>
+  <h3>Feature importance</h3>
 
   <div class="img-container">
     <img src="data/outputs/model_feature_importance.png" alt="Feature importance">
@@ -835,7 +853,11 @@
     </div>
     <div class="card">
       <h3>Zbieżność z korelacją Pearsona</h3>
-      <p style="font-size:13px; margin-bottom:0.75rem;">Top 3 z feature importance pokrywają się z najsilniejszymi korelacjami z targetem — co daje <strong>dyrektywną pewność</strong> wyników mimo niskiego R².</p>
+      <p style="font-size:13px; margin-bottom:0.75rem;">Top 3 z feature importance pokrywają się z najsilniejszymi korelacjami
+        z targetem — dwie niezależne metody wskazują te same cechy jako
+        najistotniejsze. Nie oznacza to jednak prostej relacji "więcej/bliżej = lepiej"
+        — jak pokazuje późniejsza analiza SHAP, wpływ każdej cechy jest
+        nieliniowy i zależy od kontekstu pozostałych cech lokalizacji.</p>
       <table style="font-size:12px;">
         <tr><th>Feature</th><th>r Pearson</th><th>Importance</th></tr>
         <tr><td>nearest_poi_pharmacy_m</td><td class="td-mono td-bad">−0.507</td><td class="td-mono">#1</td></tr>
@@ -853,6 +875,13 @@
 <section id="whitespot">
   <div class="section-label">05 · Whitespot Analysis</div>
   <h2>Identyfikacja nowych lokalizacji</h2>
+
+  <div class="callout">
+    Posiadając wytrenowany model, możemy teraz ocenić każdy punkt
+    na mapie obszaru analizy i wskazać gdzie warto otworzyć nowy sklep
+    — z pominięciem miejsc, gdzie klient już jest lub gdzie działa
+    bezpośrednia konkurencja.
+  </div>
 
   <div class="grid-3">
     <div class="stat-card">
@@ -880,16 +909,24 @@
     </div>
     <div class="card accent-left">
       <h3>Dlaczego H3?</h3>
-      <p style="font-size:13px;">Hexagonalna siatka H3 (Uber) minimalizuje anizotropię (każdy punkt sąsiaduje z 6 jednakowymi sąsiadami). Rozdzielczość 6 (~1.2km diameter) — kompromis między gęstością siatki a czasem obliczenia footfall z Snowflake (~2 minuty batch SQL vs ~5 godzin przy res. 7 × 1128 komórek).</p>
+      <p style="font-size:13px;">Hexagonalna siatka H3 (Uber) zapewnia równomierny podział obszaru —
+      każda komórka ma 6 sąsiadów w identycznej odległości od centrum,
+      co eliminuje problem nierównych odległości w siatce kwadratowej. Rozdzielczość 6 (~1.2km diameter) to kompromis między gęstością siatki a czasem obliczenia footfall z Snowflake.</p>
     </div>
   </div>
 
+  <div class="callout warn" style="margin-top:1rem;">
+    <strong>Ograniczenie precyzji lokalizacji:</strong> każdy kandydat reprezentowany jest przez
+    centroid komórki H3 — rzeczywista optymalna lokalizacja sklepu może znajdować się do ~600m
+    od wskazanego punktu. Model wskazuje na obszar o wysokim potencjale, nie konkretny adres. Wyższa rozdzielczość zwiększyłaby precyzję, ale czas obliczenia footfall ze Snowflake wzrósłby. Weryfikacja terenowa jest konieczna przed podjęciem ostatecznej decyzji.
+  </div>
+
   <div class="divider"></div>
-  <h3>Mapa whitespotów</h3>
+  <h3>Interaktywna mapa whitespotów</h3>
   <div class="map-container">
     <iframe src="data/outputs/whitespot_map.html" title="Whitespot map"></iframe>
   </div>
-  <p style="font-size:13px; color:var(--text-muted);">Obszary bez heatmapy = lokalizacje odfiltrowane (zbyt blisko sklepu klienta lub konkurencji). Czerwone gwiazdki = top 10 kandydatów, niebieskie gwiazdki = najgorsze 10 kandydatów, niebieskie kropki = istniejące sklepy klienta.</p>
+  <p style="font-size:13px; color:var(--text-muted);">Obszary bez heatmapy = lokalizacje odfiltrowane (zbyt blisko sklepu klienta lub konkurencji). Czerwone gwiazdki = top 10 kandydatów, niebieskie kropki = istniejące sklepy klienta.</p>
 
   <div class="divider"></div>
   <h3>Top 3 lokalizacje</h3>
@@ -900,7 +937,8 @@
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
       <div>
         <div class="location-name">Dąbrowa Górnicza, Gołonóg</div>
-        <p style="font-size:13px; max-width:55ch;">Lokalizacja sąsiaduje z Hutą Katowice — jednym z największych zakładów hutniczych w Polsce. Charakter przemysłowy obszaru: populacja 2037 poniżej mediany siatki, unique users (426) umiarkowane. Model nagradza profil odległości POI — 2367m od apteki i 3827m od parku plasują ją na peryferiach miejskich, co w danych treningowych silnie korelowało z wysokim revenue. Zero konkurentów w promieniu 1500m (najbliższy 4098m). H3 centroid leży przy granicy zakładu — w praktyce sklep siting w sąsiedniej dzielnicy mieszkalnej Gołonóg. <strong>Wymaga weryfikacji terenowej.</strong></p>
+        <p style="font-size:13px; max-width:55ch;">Najwyżej oceniona lokalizacja leży w Gołonogu, bezpośrednio przy Hucie Katowice — jednym z największych zakładów hutniczych w Polsce. Mimo przemysłowego charakteru okolicy, lokalizacja wykazuje silny ruch pieszy: 426 unikalnych użytkowników w promieniu 1500m plasuje ją wyraźnie powyżej 75. percentyla przefiltrowanej siatki (171.5). Populacja 2037 osób jest powyżej mediany siatki (1110). Apteka w odległości 2367m i park w odległości 3827m leżą wyraźnie poniżej median siatki (odpowiednio 8554m i 8137m), co wskazuje na względną bliskość usług w porównaniu z innymi kandydatami. Zero konkurentów w promieniu 1500m (najbliższy w odległości 4098m) potwierdza niezaspokojony rynek. Residential ratio 35% jest poniżej mediany siatki (0.55), odzwierciedlając przemysłowy charakter otoczenia.
+        Centroid komórki H3 leży przy granicy zakładu przemysłowego — w praktyce nowy sklep byłby zlokalizowany w sąsiedniej dzielnicy mieszkalnej Gołonóg, nie na terenie huty. Niska wartość residential ratio wymaga weryfikacji terenowej faktycznej gęstości zaludnienia w okolicy.</p>
       </div>
       <div class="location-score">100<span>/100</span></div>
     </div>
@@ -920,7 +958,8 @@
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
       <div>
         <div class="location-name">Bytom, Miechowice</div>
-        <p style="font-size:13px; max-width:55ch;">Dzielnica mieszkalna Bytomia w pobliżu Góry Drzezgowiec. Populacja 12 186 wyraźnie powyżej 75. percentyla siatki (3670) — jeden z lepiej zaludnionych kandydatów. Residential ratio 65% potwierdza mieszkalny charakter. Footfall umiarkowany (389 unique users). Zero konkurentów, najbliższy 3002m. <strong>Najbardziej zbalansowany kandydat</strong> — łączy zaludnienie, charakter mieszkalny i brak konkurencji.</p>
+        <p style="font-size:13px; max-width:55ch;">Druga lokalizacja leży w Miechowicach, dzielnicy mieszkalnej Bytomia w pobliżu Góry Drzezgowiec. Populacja 12 186 osób w promieniu 1500m jest wyraźnie powyżej 75. percentyla przefiltrowanej siatki (2405) — to jeden z najsilniejszych wyników populacyjnych spośród wszystkich 131 przefiltrowanych lokalizacji. Residential ratio 65% potwierdza gęsty, mieszkalny charakter dzielnicy. Ruch pieszy jest wysoki (389 unikalnych użytkowników — powyżej 75. percentyla siatki). Zero konkurentów w promieniu 1500m (najbliższy w odległości 3002m) potwierdza niezaspokojony rynek.
+        Model nagradza profil odległości POI — apteka w odległości 1216m i park w odległości 3162m plasują tę lokalizację poniżej median siatki, wskazując na względną bliskość usług. Centroid komórki H3 leży w lesie — w praktyce nowy sklep byłby zlokalizowany w sąsiednim osiedlu mieszkalnym Miechowice. Zalecana weryfikacja terenowa dostępności i gęstości zabudowy.</p>
       </div>
       <div class="location-score">85.2<span>/100</span></div>
     </div>
@@ -940,7 +979,8 @@
     <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
       <div>
         <div class="location-name">Rybniki Kamień, Leszczyny/Czerwionka</div>
-        <p style="font-size:13px; max-width:55ch;">Okolice Parku Rekreacyjno-Wypoczynkowego Rybniki Kamień, pogranicze Leszczyn i Czerwionki-Leszczyn. Niska populacja (671) i bardzo niski footfall (80 unique users) sugerują, że model nagradza tu cechy peryferyjne bardziej niż rzeczywisty potencjał komercyjny. Zero konkurentów, najbliższy 3542m. <strong>Kandydat niższej pewności — silnie zalecana weryfikacja terenowa.</strong></p>
+        <p style="font-size:13px; max-width:55ch;">Trzecia lokalizacja leży w pobliżu Parku Rekreacyjno-Wypoczynkowego Rybniki Kamień, na granicy Leszczyn i Czerwionki-Leszczyn. Obszar wykazuje skromny potencjał mieszkalny — populacja 671 osób w promieniu 1500m jest poniżej mediany siatki (1110), a ruch pieszy (80 unikalnych użytkowników) niski. Model wysoko ocenia tę lokalizację ze względu na profil odległości POI: 2448m do najbliższej apteki i 3620m do najbliższego parku — obydwie poniżej median siatki — przy zerowej konkurencji w okolicy (najbliższy konkurent w odległości 3542m).
+Podobnie jak w przypadku lokalizacji #1, niska bezwzględna liczba mieszkańców i niski ruch pieszy wymagają weryfikacji terenowej — model może nagradzać tu dystans do usług i brak konkurencji bardziej niż rzeczywisty popyt ze strony mieszkańców i potencjał komercyjny.</p>
       </div>
       <div class="location-score">83.6<span>/100</span></div>
     </div>
@@ -999,7 +1039,7 @@
   </table>
 
   <div class="callout">
-    Najlepiej zarabiające istniejące sklepy operują w obszarach z bardzo wysokim footfall (2278 unique users) i dużą populacją (31k) — ale też w bardziej nasyconym środowisku (1 konkurent, 1647m). Rekomendowane lokalizacje reprezentują <strong>odmienną hipotezę ekspansji</strong>: niższy initial footfall, ale całkowicie niezaspokojony rynek. Uwaga: uśrednianie 3 bardzo różnych profili (przemysłowy, mieszkalny, wiejski) może maskować istotne różnice — wyniki traktować jako kierunkowe.
+    Najlepiej zarabiające istniejące sklepy operują w obszarach z bardzo wysokim footfall (2278 unique users) i dużą populacją (31k) — ale też w bardziej nasyconym środowisku (1 konkurent, 1647m). Rekomendowane lokalizacje reprezentują <strong>odmienną hipotezę ekspansji</strong>: niższy initial footfall, ale całkowicie niezaspokojony rynek. Uwaga: uśrednianie 3 bardzo różnych profili (przemysłowy, mieszkalny, wiejski) może maskować istotne różnice — wyniki należy traktować jako kierunkowe.
   </div>
 </section>
 
@@ -1009,7 +1049,7 @@
   <h2>Rekomendacje i dalsze kroki</h2>
 
   <div class="callout good" style="margin-bottom:1.5rem;">
-    <strong>Główna rekomendacja: Bytom, Miechowice</strong> — najbardziej zbalansowany kandydat spośród przefiltrowanych lokalizacji. Solidna populacja (12 186, powyżej 75. percentyla), wyraźny charakter mieszkalny (65%), zero konkurencji. W odróżnieniu od Dąbrowy Górniczej nie budzi wątpliwości co do rzeczywistej gęstości zaludnienia i dostępności lokalu.
+    <strong>Główna rekomendacja: Bytom, Miechowice</strong> — najbardziej zbalansowany kandydat spośród przefiltrowanych lokalizacji. Solidna populacja (12 186, powyżej 75. percentyla), wyraźny charakter mieszkalny (65%), zero konkurencji. Ostateczna decyzja wymaga jednak weryfikacji terenowej i dalszej analizy opartej o nowe dane i cechy.
   </div>
 
   <div class="grid-2">
@@ -1019,7 +1059,7 @@
         <li>R²=0.175 — model wyjaśnia ~17% wariancji revenue. Pozostałe ~83% to czynniki operacyjne poza zakresem analizy lokalizacyjnej.</li>
         <li>n=50 — wysokie std (±0.453) odzwierciedla niestabilność CV przy małej próbce. GridSearch nie dał stabilnej poprawy.</li>
         <li>Dane mobilne z lipca 2020 — jeden miesiąc, jedno lato. Sezonowość nie jest uchwycona.</li>
-        <li>nearest_poi_park_m i nearest_poi_pharmacy_m dominują SHAP mimo nieliniowej relacji z revenue — model nagradza cechy peryferyjne, co może nie odpowiadać logice biznesowej dla wszystkich kandydatów.</li>
+        <li>nearest_poi_park_m i nearest_poi_pharmacy_m dominują SHAP mimo nieliniowej relacji z revenue — co może nie odpowiadać logice biznesowej dla wszystkich kandydatów.</li>
       </ul>
     </div>
     <div>
@@ -1028,8 +1068,13 @@
         <li><strong>Weryfikacja terenowa</strong> top 3 lokalizacji — szczególnie Dąbrowa (charakter przemysłowy) i Rybniki Kamień (niski footfall).</li>
         <li><strong>Więcej miesięcy danych Snowflake</strong> — lipiec 2020 to jeden punkt w czasie. Dane z pełnego roku pozwoliłyby uchwycić sezonowość i trendy.</li>
         <li><strong>Dodatkowe featury</strong> — dane o nowych inwestycjach mieszkaniowych, plany zagospodarowania przestrzennego, dane o transporcie publicznym.</li>
-        <li><strong>Większy dataset treningowy</strong> — n=50 to fundamentalne ograniczenie. Każda nowo otwarta lokalizacja powinna trafiać do datasetu treningowego.</li>
-        <li><strong>Modele hierarchiczne</strong> — uwzględnienie efektów na poziomie gminy/miasta jako random effects.</li>
+        <li><strong>Większy dataset treningowy</strong> — n=50 to fundamentalne ograniczenie. Pozyskanie danych o przychodach sklepów innych sieci w regionie
+                    pozwoliłoby znacząco rozszerzyć zbiór treningowy bez konieczności
+                    otwierania nowych lokalizacji — dane od partnerów, brokerów danych
+                    lub źródeł publicznych mogłyby zwiększyć n z 50 do kilkuset obserwacji.</li>
+        <li><strong>Modele hierarchiczne</strong> — uwzględnienie efektu
+                    miasta/dystryktu jako ukrytego parametru, zamiast traktowania
+                    wszystkich 50 lokalizacji jako jednorodnej populacji.</li>
       </ul>
     </div>
   </div>
